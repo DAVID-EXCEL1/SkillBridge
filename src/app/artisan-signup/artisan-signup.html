@@ -13,7 +13,18 @@
                     </h4>
 
                     <form [formGroup]="ArtisanSignupForm" (ngSubmit)="register()">
-
+                        <!-- ...existing code... -->
+                        <div *ngIf="message"
+                            class="alert alert-{{ messageType || 'danger' }} alert-dismissible fade show d-flex justify-content-center align-items-start"
+                            role="alert">
+                            <div class="text-center">
+                                <h6 *ngIf="messageTitle" class="mb-1 fw-semibold">{{ messageTitle }}</h6>
+                                <div class="small">{{ message }}</div>
+                            </div>
+                            <button type="button" class="btn-close ms-3" aria-label="Close"
+                                (click)="closeMessage()"></button>
+                        </div>
+                        <!-- ...existing code... -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-dark">First Name</label>
                             <div class="input-group input-group-lg rounded-3">
@@ -24,11 +35,14 @@
                                     [class.is-invalid]="ArtisanSignupForm.get('first_name')?.errors && ArtisanSignupForm.get('first_name')?.touched"
                                     [class.is-valid]="!ArtisanSignupForm.get('first_name')?.errors && ArtisanSignupForm.get('first_name')?.touched">
 
-                                @if (ArtisanSignupForm.get('first_name')?.errors && (ArtisanSignupForm.get('first_name')?.dirty)) {
+                                @if (ArtisanSignupForm.get('first_name')?.errors &&
+                                (ArtisanSignupForm.get('first_name')?.dirty)) {
                                 <div class="invalid-feedback d-block">
-                                    <span *ngIf="ArtisanSignupForm.get('first_name')?.hasError('required')">First name cannot be
+                                    <span *ngIf="ArtisanSignupForm.get('first_name')?.hasError('required')">First name
+                                        cannot be
                                         empty.</span>
-                                    <span *ngIf="ArtisanSignupForm.get('first_name')?.hasError('minlength')">First name must be
+                                    <span *ngIf="ArtisanSignupForm.get('first_name')?.hasError('minlength')">First name
+                                        must be
                                         at least 5 characters.</span>
                                 </div>
                                 }
@@ -45,11 +59,14 @@
                                     [class.is-invalid]="ArtisanSignupForm.get('last_name')?.errors && ArtisanSignupForm.get('last_name')?.touched"
                                     [class.is-valid]="!ArtisanSignupForm.get('last_name')?.errors && ArtisanSignupForm.get('last_name')?.touched">
 
-                                @if (ArtisanSignupForm.get('last_name')?.errors && (ArtisanSignupForm.get('last_name')?.dirty)) {
+                                @if (ArtisanSignupForm.get('last_name')?.errors &&
+                                (ArtisanSignupForm.get('last_name')?.dirty)) {
                                 <div class="invalid-feedback d-block">
-                                    <span *ngIf="ArtisanSignupForm.get('last_name')?.hasError('required')">Last name cannot be
+                                    <span *ngIf="ArtisanSignupForm.get('last_name')?.hasError('required')">Last name
+                                        cannot be
                                         empty.</span>
-                                    <span *ngIf="ArtisanSignupForm.get('last_name')?.hasError('minlength')">Last name must be
+                                    <span *ngIf="ArtisanSignupForm.get('last_name')?.hasError('minlength')">Last name
+                                        must be
                                         at least 5 characters.</span>
                                 </div>
                                 }
@@ -70,7 +87,8 @@
                                 <div class="invalid-feedback d-block">
                                     <span *ngIf="ArtisanSignupForm.get('email')?.hasError('required')">Email cannot be
                                         empty.</span>
-                                    <span *ngIf="ArtisanSignupForm.get('email')?.hasError('email')">Email must be a valid
+                                    <span *ngIf="ArtisanSignupForm.get('email')?.hasError('email')">Email must be a
+                                        valid
                                         address.</span>
                                 </div>
                                 }
@@ -87,7 +105,8 @@
                                     [class.is-invalid]="ArtisanSignupForm.get('password')?.errors && ArtisanSignupForm.get('password')?.touched"
                                     [class.is-valid]="!ArtisanSignupForm.get('password')?.errors && ArtisanSignupForm.get('password')?.touched">
 
-                                @if (ArtisanSignupForm.get('password')?.errors && ArtisanSignupForm.get('password')?.dirty){
+                                @if (ArtisanSignupForm.get('password')?.errors &&
+                                ArtisanSignupForm.get('password')?.dirty){
                                 <div class="invalid-feedback d-block">
                                     <span *ngIf="ArtisanSignupForm.get('password')?.hasError('pattern')">
                                         Password must be at least 8 characters, including uppercase, lowercase, numbers,
@@ -112,12 +131,14 @@
                                 @if (ArtisanSignupForm.get('confirm_password')?.errors &&
                                 ArtisanSignupForm.get('confirm_password')?.dirty){
                                 <div class="invalid-feedback d-block">
-                                    <span *ngIf="ArtisanSignupForm.get('confirm_password')?.hasError('required')">Confirm
+                                    <span
+                                        *ngIf="ArtisanSignupForm.get('confirm_password')?.hasError('required')">Confirm
                                         password cannot be empty.</span>
-                                    <span *ngIf="ArtisanSignupForm.get('confirm_password')?.hasError('minlength')">Confirm
+                                    <span
+                                        *ngIf="ArtisanSignupForm.get('confirm_password')?.hasError('minlength')">Confirm
                                         password must be at least 8 characters.</span>
                                 </div>
-                            }
+                                }
                                 <h6 *ngIf="!sameAs && ArtisanSignupForm.get('confirm_password')?.dirty"
                                     class="text-danger">Password do not match!</h6>
                                 <h6 *ngIf="sameAs && ArtisanSignupForm.get('confirm_password')?.dirty"
@@ -133,15 +154,16 @@
                         <div class="text-center mt-4 pt-2">
                             <p class="mb-0 text-muted">
                                 Already have an account?
-                                <a routerLink="/signin" class="text-decoration-none fw-bold text-primary-emphasis">Log
+                                <a routerLink="/artisan-signin" class="text-decoration-none fw-bold text-primary-emphasis">Log
                                     in</a>
                             </p>
                         </div>
                         <p class="mb-0 text-center text-muted">
-                                Create a customer account?
-                                <a routerLink="/signup" class="text-decoration-none fw-bold text-primary-emphasis">Click here
-                                    to sign up</a>
-                            </p>
+                            Create a customer account?
+                            <a routerLink="/signup" class="text-decoration-none fw-bold text-primary-emphasis">Click
+                                here
+                                to sign up</a>
+                        </p>
                     </form>
 
 

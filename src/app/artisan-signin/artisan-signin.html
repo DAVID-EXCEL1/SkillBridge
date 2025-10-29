@@ -13,7 +13,16 @@
                     </h4>
 
                     <form [formGroup]="ArtisanSigninForm" (ngSubmit)="login()">
-
+                        <div *ngIf="message"
+                            class="alert alert-{{ messageType || 'danger' }} alert-dismissible fade show d-flex justify-content-center align-items-start"
+                            role="alert">
+                            <div class="text-center">
+                                <h6 *ngIf="messageTitle" class="mb-1 fw-semibold">{{ messageTitle }}</h6>
+                                <div class="small">{{ message }}</div>
+                            </div>
+                            <button type="button" class="btn-close ms-3" aria-label="Close"
+                                (click)="closeMessage()"></button>
+                        </div>
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-dark">Email</label>
                             <div class="input-group input-group-lg rounded-3">
@@ -78,13 +87,13 @@
                     <div class="text-center mt-4 pt-2">
                         <p class="mb-0 text-muted">
                             Don’t have an account?
-                            <a routerLink="/signup" class="text-decoration-none fw-bold text-primary-emphasis">Sign
+                            <a routerLink="/artisan-signup" class="text-decoration-none fw-bold text-primary-emphasis">Sign
                                 up</a>
                         </p>
                     </div>
                     <p class="mb-0 text-center text-muted">
                         Signin as a
-                        <a routerLink="/artisan-signin"
+                        <a routerLink="/signin"
                             class="text-decoration-none fw-bold text-primary-emphasis">Customer</a>
                     </p>
                 </div>

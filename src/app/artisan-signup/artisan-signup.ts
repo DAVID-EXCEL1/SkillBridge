@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from "@angular/router";
+import {Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-artisan-signup',
@@ -17,12 +17,13 @@ export class ArtisanSignup implements OnInit {
 
   private http = inject(HttpClient);
   private builder = inject(FormBuilder);
+  private router = inject(Router);
   artisans: any = [];
   sameAs: boolean = false;
 
   ArtisanSignupForm = this.builder.group({
-    first_name: ['', [Validators.required, Validators.minLength(3)]],
-    last_name: ['', [Validators.required, Validators.minLength(3)]],
+    first_name: ['', Validators.required],
+    last_name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [
       Validators.required,
@@ -32,23 +33,31 @@ export class ArtisanSignup implements OnInit {
     confirm_password: ['', Validators.required]
   });
 
-  register() {
-    if (this.ArtisanSignupForm.invalid) return;
 
+  message: string | null = null;
+  messageType: 'success' | 'danger' | 'warning' | 'info' | null = null;
+  messageTitle?: string | null = null;
+
+  closeMessage() {
+    this.message = null;
+    this.messageType = null;
+    this.messageTitle = null;
+  }
+  register() {
     this.http.post('http://localhost/SkillBridge/ArtisanAuth.php', this.ArtisanSignupForm.value)
-      .subscribe({
-        next: (res) => {
-          console.log('Signup successful:', res);
-          this.ArtisanSignupForm.reset();
-        },
-        error: (err) => {
-          console.error('Error during signup:', err);
-          alert('An error occurred while signing up.');
+      .subscribe((response: any) => {
+        if (response.status === 200) {
+          // Direct to signin page
+          this.router.navigate(['/artisan-signin']);
+        } else {
+          this.message = response.message;
         }
       });
   }
 
   confirmPassword() {
-    this.sameAs = this.ArtisanSignupForm.value.password === this.ArtisanSignupForm.value.confirm_password;
+    if (this.ArtisanSignupForm.value.password === this.ArtisanSignupForm.value.confirm_password) {
+      this.sameAs = true;
+    }
   }
 }

@@ -32,6 +32,7 @@ export class Signin {
       .subscribe((response: any) => {
         if (response.status === 200) {
           // Direct to dashboard page
+          console.log("I will go to dashboard")
           this.router.navigate(['/dashboard']);
         } else {
           this.message = response.message;
