@@ -1,0 +1,175 @@
+<!-- admin-dashboard.component.html -->
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="border-end bg-dark text-white" id="sidebar-wrapper">
+        <div class="sidebar-heading py-4 text-center fw-bold fs-5 border-bottom border-secondary">
+            <i class="bi bi-speedometer2 me-2"></i> SkillBridge Admin
+        </div>
+
+        <div class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white active">
+                <i class="bi bi-house-door-fill me-2"></i> Dashboard
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="bi bi-people-fill me-2"></i> Artisans
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="bi bi-person-lines-fill me-2"></i> Customers
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="bi bi-briefcase-fill me-2"></i> Services
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="bi bi-cash-stack me-2"></i> Payments
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="bi bi-chat-dots-fill me-2"></i> Reviews
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="bi bi-gear-fill me-2"></i> Settings
+            </a>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper" class="w-100 bg-light">
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 shadow-sm">
+            <div class="container-fluid">
+                <button class="btn btn-outline-dark me-3" id="menu-toggle">
+                    <i class="bi bi-list"></i>
+                </button>
+                <h5 class="fw-bold text-dark mb-0">Admin Dashboard</h5>
+                <div class="d-flex align-items-center ms-auto">
+                    <a href="#" class="me-3 text-dark"><i class="bi bi-bell fs-5"></i></a>
+                    <a href="#" class="me-3 text-dark"><i class="bi bi-person-circle fs-5"></i></a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid px-4 py-4">
+
+            <!-- Overview Cards -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3" *ngFor="let stat of adminStats">
+                    <div class="card border-0 shadow-sm text-center">
+                        <div class="card-body">
+                            <i [class]="stat.icon + ' fs-2 ' + stat.color"></i>
+                            <h6 class="mt-2">{{ stat.title }}</h6>
+                            <h4 class="fw-bold text-dark">{{ stat.value }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Management Table -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white fw-bold fs-5 d-flex justify-content-between align-items-center">
+                    <span>Registered Artisans</span>
+                    <button class="btn btn-sm btn-dark">
+                        <i class="bi bi-plus-circle me-1"></i> Add Artisan
+                    </button>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Skill</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let artisan ; index as i">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ artisan.name }}</td>
+                                <td>{{ artisan.skill }}</td>
+                                <td>{{ artisan.email }}</td>
+                                <td>{{ artisan.phone }}</td>
+                                <td>
+                                    <span class="badge" [ngClass]="{
+                'bg-success': artisan.status === 'Active',
+                'bg-danger': artisan.status === 'Suspended'
+                }">{{ artisan.status }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Service and Payment Overview -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white fw-bold fs-5">Top Services</div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li *ngFor="let service of topServices
+                                "
+                                    class="list-group-item d-flex justify-content-between">
+                                    <span>{{ service.name }}</span>
+                                    <span class="fw-bold">{{ service.bookings }} bookings</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white fw-bold fs-5">Recent Payments</div>
+                        <div class="card-body">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let payment of recentPayments">
+                                        <td>{{ payment.customer }}</td>
+                                        <td>₦{{ payment.amount | number }}</td>
+                                        <td>
+                                            <span class="badge" [ngClass]="{
+                    'bg-success': payment.status === 'Completed',
+                    'bg-warning text-dark': payment.status === 'Pending'
+                    }">{{ payment.status }}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Reviews -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white fw-bold fs-5">Recent Reviews</div>
+                <div class="card-body">
+                    <div *ngFor="let review of reviews" class="border-bottom py-3">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="fw-bold mb-1">{{ review.customer }}</h6>
+                                <p class="mb-1 text-muted">{{ review.comment }}</p>
+                                <span class="text-warning">
+                                    <i class="bi bi-star-fill" *ngFor="let star of [].constructor(review.rating)"></i>
+                                </span>
+                            </div>
+                            <small class="text-muted">{{ review.date | date:'mediumDate' }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

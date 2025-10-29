@@ -1,0 +1,152 @@
+<div class="container py-5 my-5">
+    <div class="row align-items-center justify-content-center">
+
+        <div class="text-center mb-5">
+            <h4 class="fw-light text-secondary mb-0">Hire Skilled Artisans, Instantly</h4>
+        </div>
+
+        <div class="col-lg-5 col-md-6 col-sm-12">
+            <div class="card border-0 shadow-lg rounded-5 p-4 p-md-5 bg-white">
+                <div class="card-body">
+                    <h4 class="text-center text-primary fw-bold mb-4">
+                        <i class="bi bi-person-plus-fill me-2"></i> Artisan's Registration
+                    </h4>
+
+                    <form [formGroup]="ArtisanSignupForm" (ngSubmit)="register()">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark">First Name</label>
+                            <div class="input-group input-group-lg rounded-3">
+                                <span class="input-group-text bg-light border-end-0"><i
+                                        class="bi bi-person text-primary"></i></span>
+                                <input type="text" class="form-control border-start-0 rounded-end"
+                                    formControlName="first_name" placeholder="Enter your first name"
+                                    [class.is-invalid]="ArtisanSignupForm.get('first_name')?.errors && ArtisanSignupForm.get('first_name')?.touched"
+                                    [class.is-valid]="!ArtisanSignupForm.get('first_name')?.errors && ArtisanSignupForm.get('first_name')?.touched">
+
+                                @if (ArtisanSignupForm.get('first_name')?.errors && (ArtisanSignupForm.get('first_name')?.dirty)) {
+                                <div class="invalid-feedback d-block">
+                                    <span *ngIf="ArtisanSignupForm.get('first_name')?.hasError('required')">First name cannot be
+                                        empty.</span>
+                                    <span *ngIf="ArtisanSignupForm.get('first_name')?.hasError('minlength')">First name must be
+                                        at least 5 characters.</span>
+                                </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark">Last Name</label>
+                            <div class="input-group input-group-lg rounded-3">
+                                <span class="input-group-text bg-light border-end-0"><i
+                                        class="bi bi-person text-primary"></i></span>
+                                <input type="text" class="form-control border-start-0 rounded-end"
+                                    formControlName="last_name" placeholder="Enter your last name"
+                                    [class.is-invalid]="ArtisanSignupForm.get('last_name')?.errors && ArtisanSignupForm.get('last_name')?.touched"
+                                    [class.is-valid]="!ArtisanSignupForm.get('last_name')?.errors && ArtisanSignupForm.get('last_name')?.touched">
+
+                                @if (ArtisanSignupForm.get('last_name')?.errors && (ArtisanSignupForm.get('last_name')?.dirty)) {
+                                <div class="invalid-feedback d-block">
+                                    <span *ngIf="ArtisanSignupForm.get('last_name')?.hasError('required')">Last name cannot be
+                                        empty.</span>
+                                    <span *ngIf="ArtisanSignupForm.get('last_name')?.hasError('minlength')">Last name must be
+                                        at least 5 characters.</span>
+                                </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark">Email</label>
+                            <div class="input-group input-group-lg rounded-3">
+                                <span class="input-group-text bg-light border-end-0"><i
+                                        class="bi bi-envelope text-primary"></i></span>
+                                <input type="email" class="form-control border-start-0 rounded-end"
+                                    formControlName="email" placeholder="example@email.com"
+                                    [class.is-invalid]="ArtisanSignupForm.get('email')?.errors && ArtisanSignupForm.get('email')?.touched"
+                                    [class.is-valid]="!ArtisanSignupForm.get('email')?.errors && ArtisanSignupForm.get('email')?.touched">
+
+                                @if (ArtisanSignupForm.get('email')?.errors && ArtisanSignupForm.get('email')?.dirty){
+                                <div class="invalid-feedback d-block">
+                                    <span *ngIf="ArtisanSignupForm.get('email')?.hasError('required')">Email cannot be
+                                        empty.</span>
+                                    <span *ngIf="ArtisanSignupForm.get('email')?.hasError('email')">Email must be a valid
+                                        address.</span>
+                                </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark">Password</label>
+                            <div class="input-group input-group-lg rounded-3">
+                                <span class="input-group-text bg-light border-end-0"><i
+                                        class="bi bi-lock text-primary"></i></span>
+                                <input type="password" class="form-control border-start-0 rounded-end"
+                                    formControlName="password" placeholder="Enter password"
+                                    [class.is-invalid]="ArtisanSignupForm.get('password')?.errors && ArtisanSignupForm.get('password')?.touched"
+                                    [class.is-valid]="!ArtisanSignupForm.get('password')?.errors && ArtisanSignupForm.get('password')?.touched">
+
+                                @if (ArtisanSignupForm.get('password')?.errors && ArtisanSignupForm.get('password')?.dirty){
+                                <div class="invalid-feedback d-block">
+                                    <span *ngIf="ArtisanSignupForm.get('password')?.hasError('pattern')">
+                                        Password must be at least 8 characters, including uppercase, lowercase, numbers,
+                                        and special characters.
+                                    </span>
+                                </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-dark">Confirm Password</label>
+                            <div class="input-group input-group-lg rounded-3">
+                                <span class="input-group-text bg-light border-end-0"><i
+                                        class="bi bi-lock-fill text-primary"></i></span>
+                                <input type="password" (keyup)="confirmPassword()"
+                                    class="form-control border-start-0 rounded-end" formControlName="confirm_password"
+                                    placeholder="Confirm password"
+                                    [class.is-invalid]="ArtisanSignupForm.get('confirm_password')?.errors&& ArtisanSignupForm.get('confirm_password')?.touched"
+                                    [class.is-valid]="!ArtisanSignupForm.get('confirm_password')?.errors && ArtisanSignupForm.get('confirm_password')?.touched">
+
+                                @if (ArtisanSignupForm.get('confirm_password')?.errors &&
+                                ArtisanSignupForm.get('confirm_password')?.dirty){
+                                <div class="invalid-feedback d-block">
+                                    <span *ngIf="ArtisanSignupForm.get('confirm_password')?.hasError('required')">Confirm
+                                        password cannot be empty.</span>
+                                    <span *ngIf="ArtisanSignupForm.get('confirm_password')?.hasError('minlength')">Confirm
+                                        password must be at least 8 characters.</span>
+                                </div>
+                            }
+                                <h6 *ngIf="!sameAs && ArtisanSignupForm.get('confirm_password')?.dirty"
+                                    class="text-danger">Password do not match!</h6>
+                                <h6 *ngIf="sameAs && ArtisanSignupForm.get('confirm_password')?.dirty"
+                                    class="text-success"></h6>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 mt-3 py-3 rounded-pill fw-bold shadow"
+                            [disabled]="!(sameAs|| ArtisanSignupForm.valid)">
+                            <i class="bi bi-check-circle me-2"></i> Register
+                        </button>
+
+                        <div class="text-center mt-4 pt-2">
+                            <p class="mb-0 text-muted">
+                                Already have an account?
+                                <a routerLink="/signin" class="text-decoration-none fw-bold text-primary-emphasis">Log
+                                    in</a>
+                            </p>
+                        </div>
+                        <p class="mb-0 text-center text-muted">
+                                Create a customer account?
+                                <a routerLink="/signup" class="text-decoration-none fw-bold text-primary-emphasis">Click here
+                                    to sign up</a>
+                            </p>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
