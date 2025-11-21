@@ -1,101 +1,138 @@
-<div class="container py-5 my-5">
-    <div class="row align-items-center justify-content-center">
+<!-- Animated Background -->
+<div class="signup-background">
+    <div class="gradient-bg"></div>
+    <div class="animated-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+    </div>
+</div>
 
-        <div class="text-center mb-5">
-            <h4 class="fw-light text-secondary mb-0">Welcome Back!</h4>
-        </div>
+<div class="signup-container">
+    <div class="container">
+        <div class="row align-items-center justify-content-center min-vh-100">
+            
 
-        <div class="col-lg-5 col-md-6 col-sm-12">
-            <div class="card border-0 shadow-lg rounded-5 p-4 p-md-5 bg-white">
-                <div class="card-body">
-                    <h4 class="text-center text-primary fw-bold mb-5">
-                        <i class="bi bi-person-check-fill me-2"></i> Artisan Log In
-                    </h4>
-
-                    <form [formGroup]="ArtisanSigninForm" (ngSubmit)="login()">
-                        <div *ngIf="message"
-                            class="alert alert-{{ messageType || 'danger' }} alert-dismissible fade show d-flex justify-content-center align-items-start"
-                            role="alert">
-                            <div class="text-center">
-                                <h6 *ngIf="messageTitle" class="mb-1 fw-semibold">{{ messageTitle }}</h6>
-                                <div class="small">{{ message }}</div>
-                            </div>
-                            <button type="button" class="btn-close ms-3" aria-label="Close"
-                                (click)="closeMessage()"></button>
+            <!-- Form Card -->
+            <div class="col-lg-5 col-md-7 col-sm-10">
+                <div class="signup-card fade-in-up">
+                    <div class="card-glow"></div>
+                    
+                    <!-- Card Header -->
+                    <div class="card-header-custom">
+                        <div class="icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+                                <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+                            </svg>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold text-dark">Email</label>
-                            <div class="input-group input-group-lg rounded-3">
-                                <span class="input-group-text bg-light border-end-0">
-                                    <i class="bi bi-envelope text-primary"></i>
-                                </span>
-                                <input type="email" class="form-control border-start-0 rounded-end"
-                                    formControlName="email" placeholder="example@email.com"
+                        <h4 class="signup-title">Artisan Sign In</h4>
+                        <p class="signup-subtitle">Access your artisan dashboard</p>
+                    </div>
+
+                    <form [formGroup]="ArtisanSigninForm" (ngSubmit)="login()" class="signup-form">
+                        <!-- Alert Message -->
+                        <div *ngIf="message" class="alert-modern alert-{{ messageType || 'danger' }}" role="alert">
+                            <div class="alert-content">
+                                <i class="bi" [ngClass]="{
+                                    'bi-check-circle-fill': messageType === 'success',
+                                    'bi-exclamation-triangle-fill': messageType === 'warning',
+                                    'bi-info-circle-fill': messageType === 'info',
+                                    'bi-x-circle-fill': messageType === 'danger'
+                                }"></i>
+                                <div>
+                                    <h6 *ngIf="messageTitle" class="alert-title">{{ messageTitle }}</h6>
+                                    <p class="alert-message">{{ message }}</p>
+                                </div>
+                            </div>
+                            <button type="button" class="alert-close" aria-label="Close" (click)="closeMessage()">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="bi bi-envelope"></i> Email Address
+                            </label>
+                            <div class="input-wrapper">
+                                <input type="email" class="form-control" formControlName="email" 
+                                    placeholder="example@email.com"
                                     [class.is-invalid]="ArtisanSigninForm.get('email')?.errors && ArtisanSigninForm.get('email')?.touched"
                                     [class.is-valid]="!ArtisanSigninForm.get('email')?.errors && ArtisanSigninForm.get('email')?.touched">
-
-                                @if (ArtisanSigninForm.get('email')?.errors && ArtisanSigninForm.get('email')?.touched){
-                                <div class="invalid-feedback d-block">
-                                    <span *ngIf="ArtisanSigninForm.get('email')?.hasError('required')">Email cannot be
-                                        empty.</span>
-                                    <span *ngIf="ArtisanSigninForm.get('email')?.hasError('email')">Email must be a
-                                        valid email
-                                        address.</span>
-                                </div>
-                                }
+                                <span class="input-icon">
+                                    <i class="bi bi-envelope"></i>
+                                </span>
                             </div>
+                            @if (ArtisanSigninForm.get('email')?.errors && ArtisanSigninForm.get('email')?.dirty) {
+                            <div class="error-message">
+                                <i class="bi bi-exclamation-circle"></i>
+                                <span *ngIf="ArtisanSigninForm.get('email')?.hasError('required')">Email is required</span>
+                                <span *ngIf="ArtisanSigninForm.get('email')?.hasError('email')">Please enter a valid email</span>
+                            </div>
+                            }
                         </div>
 
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold text-dark">Password</label>
-                            <div class="input-group input-group-lg rounded-3">
-                                <span class="input-group-text bg-light border-end-0">
-                                    <i class="bi bi-lock text-primary"></i>
-                                </span>
-                                <input type="password" class="form-control border-start-0 rounded-end"
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="bi bi-lock"></i> Password
+                            </label>
+                            <div class="input-wrapper">
+                                <input [type]="showPassword ? 'text' : 'password'" class="form-control" 
                                     formControlName="password" placeholder="Enter password"
                                     [class.is-invalid]="ArtisanSigninForm.get('password')?.errors && ArtisanSigninForm.get('password')?.touched"
                                     [class.is-valid]="!ArtisanSigninForm.get('password')?.errors && ArtisanSigninForm.get('password')?.touched">
-
-                                @if (ArtisanSigninForm.get('password')?.errors &&
-                                ArtisanSigninForm.get('password')?.touched){
-                                <div class="invalid-feedback d-block">
-                                    <span *ngIf="ArtisanSigninForm.get('password')?.hasError('required')">Password is
-                                        required.</span>
-                                </div>
-                                }
+                                <span class="input-icon">
+                                    <i class="bi bi-lock"></i>
+                                </span>
+                                <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+                                    <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+                                </button>
                             </div>
+                            @if (ArtisanSigninForm.get('password')?.errors && ArtisanSigninForm.get('password')?.dirty) {
+                            <div class="error-message">
+                                <i class="bi bi-exclamation-circle"></i>
+                                <span *ngIf="ArtisanSigninForm.get('password')?.hasError('required')">Password is required</span>
+                            </div>
+                            }
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center mb-5">
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="form-options">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="rememberMe">
-                                <label class="form-check-label text-secondary small" for="rememberMe">
+                                <label class="form-check-label" for="rememberMe">
                                     Remember me
                                 </label>
                             </div>
-                            <a routerLink="/forgot-password"
-                                class="text-decoration-none text-primary fw-bold small">Forgot password?</a>
+                            <a routerLink="/forgot-password" class="link-primary">Forgot password?</a>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-lg w-100 py-3 rounded-pill fw-bold shadow"
-                            [disabled]="!ArtisanSigninForm.valid">
-                            <i class="bi bi-box-arrow-in-right me-2"></i> Log In
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-submit" [disabled]="!ArtisanSigninForm.valid || loading">
+                            <span *ngIf="!loading">
+                                <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
+                            </span>
+                            <span *ngIf="loading" class="spinner-wrapper">
+                                <span class="spinner"></span> Signing in...
+                            </span>
                         </button>
-                    </form>
 
-                    <div class="text-center mt-4 pt-2">
-                        <p class="mb-0 text-muted">
-                            Don’t have an account?
-                            <a routerLink="/artisan-signup" class="text-decoration-none fw-bold text-primary-emphasis">Sign
-                                up</a>
-                        </p>
-                    </div>
-                    <p class="mb-0 text-center text-muted">
-                        Signin as a
-                        <a routerLink="/signin"
-                            class="text-decoration-none fw-bold text-primary-emphasis">Customer</a>
-                    </p>
+                        <!-- Links -->
+                        <div class="form-links">
+                            <p class="link-text">
+                                Don't have an account?
+                                <a routerLink="/artisan-signup" class="link-primary">Sign up as artisan</a>
+                            </p>
+                            <p class="link-text">
+                                Are you a customer?
+                                <a routerLink="/signin" class="link-secondary">Sign in here</a>
+                            </p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

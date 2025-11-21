@@ -1,0 +1,309 @@
+<!-- Modern Sub-Category Management Page -->
+<div class="subcategory-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
+        <div class="sidebar-header">
+            <div class="brand">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="white">
+                    <path d="M16 2L2 9v14c0 7.7 5.8 14 14 14s14-6.3 14-14V9L16 2z"/>
+                </svg>
+                <span class="brand-text">SkillBridge</span>
+            </div>
+            <button class="toggle-btn" (click)="toggleSidebar()">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a routerLink="/dashboard" class="nav-link">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+            <a routerLink="/sub-category" class="nav-link active">
+                <i class="bi bi-diagram-3-fill"></i>
+                <span>Categories</span>
+            </a>
+            <a routerLink="/admin" class="nav-link">
+                <i class="bi bi-people-fill"></i>
+                <span>Users</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-box-seam"></i>
+                <span>Services</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-gear-fill"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="nav-link logout-btn" (click)="logout()">
+                <i class="bi bi-box-arrow-left"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="mobile-toggle" (click)="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input 
+                        type="search" 
+                        placeholder="Search categories, sub-categories..." 
+                        [(ngModel)]="searchTerm"
+                        (input)="filterCategories()">
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button class="icon-btn">
+                    <i class="bi bi-bell-fill"></i>
+                    <span class="badge">3</span>
+                </button>
+                <div class="user-menu">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff" alt="Admin">
+                    <div class="user-info">
+                        <span class="user-name">Admin User</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="welcome-text">
+                    <h1>Category Management 📊</h1>
+                    <p>Organize and manage service categories and their sub-categories efficiently</p>
+                </div>
+                <button class="btn-primary" (click)="openAddCategoryModal()">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Add New Category
+                </button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="bi bi-collection-fill"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Categories</span>
+                        <h3 class="stat-value">{{categories.length}}</h3>
+                        <span class="stat-change positive">
+                            <i class="bi bi-arrow-up"></i> Active
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="bi bi-diagram-2-fill"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Sub-categories</span>
+                        <h3 class="stat-value">{{getTotalSubCategories()}}</h3>
+                        <span class="stat-change positive">
+                            <i class="bi bi-arrow-up"></i> Total items
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Active Artisans</span>
+                        <h3 class="stat-value">{{totalArtisans}}</h3>
+                        <span class="stat-change neutral">
+                            <i class="bi bi-dash"></i> Registered
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon pink">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Popular Services</span>
+                        <h3 class="stat-value">{{getPopularCount()}}</h3>
+                        <span class="stat-change positive">
+                            <i class="bi bi-arrow-up"></i> Most used
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-bar">
+                <div class="filter-left">
+                    <button class="filter-btn" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'">
+                        <i class="bi bi-grid-3x3-gap-fill"></i>
+                        Grid
+                    </button>
+                    <button class="filter-btn" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'">
+                        <i class="bi bi-list-ul"></i>
+                        List
+                    </button>
+                </div>
+                <div class="filter-right">
+                    <select class="form-select" [(ngModel)]="sortBy" (change)="sortCategories()">
+                        <option value="name">Sort by Name</option>
+                        <option value="subcategories">Sort by Sub-categories Count</option>
+                        <option value="recent">Recently Added</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Categories Grid/List -->
+            <div class="categories-container" [class.grid-view]="viewMode === 'grid'" [class.list-view]="viewMode === 'list'">
+                <div class="category-card" *ngFor="let category of filteredCategories; let i = index" [class.expanded]="category.expanded">
+                    <div class="category-header" (click)="toggleCategory(i)">
+                        <div class="category-left">
+                            <div class="category-icon" [style.background]="getRandomGradient(i)">
+                                <i [class]="getCategoryIcon(category.name)"></i>
+                            </div>
+                            <div class="category-info">
+                                <h3>{{category.name}}</h3>
+                                <span class="badge-count">
+                                    <i class="bi bi-diagram-2"></i>
+                                    {{category.subCategories.length}} sub-categories
+                                </span>
+                            </div>
+                        </div>
+                        <div class="category-right">
+                            <button class="btn-icon-action" (click)="editCategory(category); $event.stopPropagation()">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                            <button class="btn-icon-action danger" (click)="deleteCategory(category); $event.stopPropagation()">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                            <button class="btn-expand">
+                                <i class="bi" [class.bi-chevron-down]="!category.expanded" [class.bi-chevron-up]="category.expanded"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Sub-categories Section -->
+                    <div class="subcategories-section" *ngIf="category.expanded">
+                        <div class="subcategory-form">
+                            <div class="input-group">
+                                <i class="bi bi-plus-circle"></i>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="Add new sub-category..."
+                                    [(ngModel)]="newSubCategory[i]"
+                                    (keyup.enter)="addSubCategory(i)">
+                                <button class="btn-add-sub" (click)="addSubCategory(i)">
+                                    <i class="bi bi-check-lg"></i>
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="subcategories-grid" *ngIf="category.subCategories.length > 0">
+                            <div class="subcategory-chip" *ngFor="let sub of category.subCategories; let j = index">
+                                <span class="chip-text">{{sub}}</span>
+                                <div class="chip-actions">
+                                    <button class="chip-btn" (click)="editSubCategory(i, j)">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="chip-btn delete" (click)="deleteSubCategory(i, j)">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="empty-state-sub" *ngIf="category.subCategories.length === 0">
+                            <div class="empty-icon">
+                                <i class="bi bi-inbox"></i>
+                            </div>
+                            <p>No sub-categories yet. Add one above!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state-main" *ngIf="filteredCategories.length === 0">
+                <div class="empty-icon-large">
+                    <i class="bi bi-search"></i>
+                </div>
+                <h3>No categories found</h3>
+                <p>Try adjusting your search or add a new category</p>
+                <button class="btn-primary" (click)="openAddCategoryModal()">
+                    <i class="bi bi-plus-circle"></i>
+                    Add First Category
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Category Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <div>
+                <h3>{{isEditing ? 'Edit Category' : 'Add New Category'}}</h3>
+                <p class="modal-subtitle">{{isEditing ? 'Update category information' : 'Create a new service category'}}</p>
+            </div>
+            <button class="btn-close" (click)="closeModal()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>
+                    <i class="bi bi-tag-fill"></i>
+                    Category Name
+                </label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="modalCategoryName"
+                    placeholder="e.g., Plumbing, Tailoring, etc.">
+            </div>
+            <div class="form-group">
+                <label>
+                    <i class="bi bi-list-ul"></i>
+                    Initial Sub-categories <span class="optional">(Optional)</span>
+                </label>
+                <textarea 
+                    class="form-control" 
+                    rows="5"
+                    [(ngModel)]="modalSubCategories"
+                    placeholder="Enter sub-categories, one per line&#10;Example:&#10;Residential Plumbing&#10;Commercial Plumbing&#10;Emergency Services"></textarea>
+                <small class="form-hint">
+                    <i class="bi bi-info-circle"></i>
+                    Add one sub-category per line. You can also add them later.
+                </small>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" (click)="closeModal()">
+                <i class="bi bi-x-circle"></i>
+                Cancel
+            </button>
+            <button class="btn-primary" (click)="saveCategory()">
+                <i class="bi bi-check-circle"></i>
+                {{isEditing ? 'Update' : 'Create'}} Category
+            </button>
+        </div>
+    </div>
+</div>

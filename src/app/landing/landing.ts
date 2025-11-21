@@ -8,8 +8,14 @@ import { RouterLink } from '@angular/router';
   styleUrl: './landing.css'
 })
 export class Landing implements OnInit {
+  isMobileMenuOpen = false;
+
   ngOnInit() {
     this.initScrollAnimation();
+  }
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
   private initScrollAnimation() {

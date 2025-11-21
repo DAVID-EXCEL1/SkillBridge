@@ -1,241 +1,352 @@
-<!-- Artisan Dashboard Page -->
-<div class="d-flex" id="wrapper">
+<!-- Modern Artisan Dashboard -->
+<div class="dashboard-wrapper">
+    <!-- Mobile Backdrop -->
+    <div class="sidebar-backdrop" [class.active]="isSidebarCollapsed" (click)="toggleSidebar()"></div>
+    
     <!-- Sidebar -->
-    <div class="border-end bg-white shadow-sm" id="sidebar-wrapper" style="min-width:250px;">
-        <div class="sidebar-heading text-center py-4 fw-bold text-primary border-bottom">
-            SkillBridge
-        </div>
-        <div class="list-group list-group-flush">
-            <a href="#" class="list-group-item list-group-item-action active text-primary fw-semibold">
-                <i class="bi bi-speedometer2 me-2"></i> Dashboard
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">
-                <i class="bi bi-briefcase me-2"></i> My Jobs
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">
-                <i class="bi bi-chat-left-text me-2"></i> Messages
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">
-                <i class="bi bi-star me-2"></i> Reviews
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">
-                <i class="bi bi-cash me-2"></i> Earnings
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">
-                <i class="bi bi-gear me-2"></i> Settings
-            </a>
-        </div>
-    </div>
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper" class="w-100">
-        <!-- Top Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
-            <div class="container-fluid">
-                <button class="btn btn-light" id="menu-toggle">
-                    <i class="bi bi-list fs-4"></i>
-                </button>
-                <h5 class="ms-3 fw-semibold text-dark mb-0">Artisan Dashboard</h5>
-                <div class="ms-auto d-flex align-items-center">
-                    <i class="bi bi-bell me-3 fs-5 text-secondary"></i>
-                    <i class="bi bi-chat-dots me-3 fs-5 text-secondary"></i>
-                    <img src="https://via.placeholder.com/40" alt="User" class="rounded-circle" />
-                </div>
+    <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
+        <div class="sidebar-header">
+            <div class="brand">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>
+                </svg>
+                <span class="brand-text">SkillBridge</span>
             </div>
+            <button class="toggle-btn" (click)="toggleSidebar()">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-link active">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-briefcase"></i>
+                <span>My Jobs</span>
+                <span class="badge">4</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-chat-left-text"></i>
+                <span>Messages</span>
+                <span class="badge">7</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-star"></i>
+                <span>Reviews</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-wallet2"></i>
+                <span>Earnings</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-calendar-check"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
         </nav>
 
-        <!-- Dashboard Content -->
-        <div class="container-fluid px-4 mt-4">
-            <h4 class="fw-bold text-dark mb-4">Welcome Back, Artisan 👋</h4>
-
-            <!-- Stats Section -->
-            <div class="row mb-4">
-                <div class="col-md-3 mb-3">
-                    <div class="card shadow-sm border-0 p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="text-muted">Active Jobs</h6>
-                                <h4 class="fw-bold text-primary">5</h4>
-                            </div>
-                            <i class="bi bi-briefcase-fill text-primary fs-3"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card shadow-sm border-0 p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="text-muted">Pending Offers</h6>
-                                <h4 class="fw-bold text-warning">3</h4>
-                            </div>
-                            <i class="bi bi-envelope-open-fill text-warning fs-3"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card shadow-sm border-0 p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="text-muted">Completed Jobs</h6>
-                                <h4 class="fw-bold text-success">22</h4>
-                            </div>
-                            <i class="bi bi-check-circle-fill text-success fs-3"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card shadow-sm border-0 p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="text-muted">Earnings</h6>
-                                <h4 class="fw-bold text-info">₦320,000</h4>
-                            </div>
-                            <i class="bi bi-cash-stack text-info fs-3"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ongoing Projects -->
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-body">
-                    <h5 class="fw-bold mb-3 text-dark">Ongoing Projects</h5>
-                    <table class="table align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Project</th>
-                                <th>Client</th>
-                                <th>Status</th>
-                                <th>Start Date</th>
-                                <th>Deadline</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Home Plumbing Repairs</td>
-                                <td>Samuel Okoro</td>
-                                <td><span class="badge bg-warning">In Progress</span></td>
-                                <td>Oct 12, 2025</td>
-                                <td>Oct 22, 2025</td>
-                                <td><button class="btn btn-sm btn-outline-primary">Update</button></td>
-                            </tr>
-                            <tr>
-                                <td>Electrical Maintenance</td>
-                                <td>Aisha Lawal</td>
-                                <td><span class="badge bg-success">Completed</span></td>
-                                <td>Oct 01, 2025</td>
-                                <td>Oct 08, 2025</td>
-                                <td><button class="btn btn-sm btn-outline-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Office Painting</td>
-                                <td>Tolu Ade</td>
-                                <td><span class="badge bg-warning">In Progress</span></td>
-                                <td>Oct 15, 2025</td>
-                                <td>Oct 27, 2025</td>
-                                <td><button class="btn btn-sm btn-outline-primary">Update</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- New Job Requests -->
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-body">
-                    <h5 class="fw-bold mb-3 text-dark">New Job Requests</h5>
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <div class="card p-3 border-0 shadow-sm">
-                                <h6 class="fw-bold mb-1">Plumbing for Bathroom</h6>
-                                <p class="small text-muted mb-2">Client: <span class="fw-semibold">Ola Adebayo</span>
-                                </p>
-                                <p class="small text-muted mb-2">Location: Ikeja, Lagos</p>
-                                <p class="small text-muted mb-2">Budget: ₦15,000</p>
-                                <button class="btn btn-sm btn-outline-success w-100">Accept Job</button>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="card p-3 border-0 shadow-sm">
-                                <h6 class="fw-bold mb-1">Fix Electrical Socket</h6>
-                                <p class="small text-muted mb-2">Client: <span class="fw-semibold">Ngozi Chukwuma</span>
-                                </p>
-                                <p class="small text-muted mb-2">Location: Yaba, Lagos</p>
-                                <p class="small text-muted mb-2">Budget: ₦7,000</p>
-                                <button class="btn btn-sm btn-outline-success w-100">Accept Job</button>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="card p-3 border-0 shadow-sm">
-                                <h6 class="fw-bold mb-1">Gate Painting</h6>
-                                <p class="small text-muted mb-2">Client: <span class="fw-semibold">Ibrahim Musa</span>
-                                </p>
-                                <p class="small text-muted mb-2">Location: Ilorin, Kwara</p>
-                                <p class="small text-muted mb-2">Budget: ₦10,000</p>
-                                <button class="btn btn-sm btn-outline-success w-100">Accept Job</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Messages Section -->
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-body">
-                    <h5 class="fw-bold mb-3 text-dark">Recent Messages</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>Ola Adebayo:</strong> Is my bathroom job confirmed yet?
-                            </div>
-                            <span class="text-muted small">2h ago</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>Tolu Ade:</strong> Please share your painting color samples.
-                            </div>
-                            <span class="text-muted small">5h ago</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>Samuel Okoro:</strong> Thanks for the great work done!
-                            </div>
-                            <span class="text-muted small">Yesterday</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Ratings Section -->
-            <div class="card shadow-sm border-0 mb-5">
-                <div class="card-body">
-                    <h5 class="fw-bold mb-3 text-dark">Performance Overview</h5>
-                    <div class="row text-center">
-                        <div class="col-md-3 mb-3">
-                            <h6 class="text-muted">Overall Rating</h6>
-                            <h4 class="fw-bold text-warning">4.7 ★</h4>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <h6 class="text-muted">Completed Jobs</h6>
-                            <h4 class="fw-bold text-success">22</h4>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <h6 class="text-muted">Clients Served</h6>
-                            <h4 class="fw-bold text-info">18</h4>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <h6 class="text-muted">Repeat Clients</h6>
-                            <h4 class="fw-bold text-primary">9</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <footer class="text-center py-4 border-top text-muted small">
-                &copy; 2025 SkillBridge — Artisan Dashboard
-            </footer>
+        <div class="sidebar-footer">
+            <button class="logout-btn" (click)="logout()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </button>
         </div>
-    </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="mobile-toggle" (click)="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search jobs, customers...">
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <button class="icon-btn notifications-btn">
+                    <i class="bi bi-bell" ></i>
+                    <span class="notification-dot"></span>
+                </button>
+                <button class="icon-btn messages-btn">
+                    <i class="bi bi-chat-dots"></i>
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Artisan&background=8b5cf6&color=fff" alt="User">
+                    <div class="user-info">
+                        <span class="user-name">John Artisan</span>
+                        <span class="user-role">Professional</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section artisan">
+                <div class="welcome-text">
+                    <h1>Welcome back, <span class="gradient-text">John</span>! 🛠️</h1>
+                    <p>You have 4 pending job requests and 2 ongoing projects.</p>
+                </div>
+                <button class="btn-primary">
+                    <i class="bi bi-plus-lg me-2"></i>
+                    Update Availability
+                </button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="bi bi-briefcase-fill"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Jobs</span>
+                        <h3 class="stat-value">{{artisanStats.totalJobs || 47}}</h3>
+                        <span class="stat-change positive">
+                            <i class="bi bi-arrow-up"></i> 15% from last month
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Active Jobs</span>
+                        <h3 class="stat-value">{{artisanStats.activeJobs || 4}}</h3>
+                        <span class="stat-change positive">
+                            <i class="bi bi-arrow-up"></i> 2 new requests
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Rating</span>
+                        <h3 class="stat-value">{{artisanStats.rating || '4.9'}}</h3>
+                        <span class="stat-change positive">
+                            <i class="bi bi-arrow-up"></i> 127 reviews
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon pink">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Earnings</span>
+                        <h3 class="stat-value">₦{{artisanStats.totalEarnings || '1,240,000'}}</h3>
+                        <span class="stat-change positive">
+                            <i class="bi bi-arrow-up"></i> 22% increase
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two Column Layout -->
+            <div class="content-grid">
+                <!-- Pending Requests -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Pending Requests</h3>
+                        <a href="#" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="project-list">
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <img src="https://ui-avatars.com/api/?name=Alice+Brown&background=6366f1&color=fff" alt="Customer">
+                                    <div>
+                                        <h4>Plumbing Repair</h4>
+                                        <p><i class="bi bi-person"></i> Alice Brown</p>
+                                        <p class="job-detail"><i class="bi bi-geo-alt"></i> Lagos, Nigeria</p>
+                                    </div>
+                                </div>
+                                <div class="action-btns">
+                                    <button class="btn-accept"><i class="bi bi-check"></i></button>
+                                    <button class="btn-decline"><i class="bi bi-x"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <img src="https://ui-avatars.com/api/?name=Bob+Smith&background=8b5cf6&color=fff" alt="Customer">
+                                    <div>
+                                        <h4>Electrical Installation</h4>
+                                        <p><i class="bi bi-person"></i> Bob Smith</p>
+                                        <p class="job-detail"><i class="bi bi-geo-alt"></i> Abuja, Nigeria</p>
+                                    </div>
+                                </div>
+                                <div class="action-btns">
+                                    <button class="btn-accept"><i class="bi bi-check"></i></button>
+                                    <button class="btn-decline"><i class="bi bi-x"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <img src="https://ui-avatars.com/api/?name=Carol+White&background=d946ef&color=fff" alt="Customer">
+                                    <div>
+                                        <h4>Carpentry Work</h4>
+                                        <p><i class="bi bi-person"></i> Carol White</p>
+                                        <p class="job-detail"><i class="bi bi-geo-alt"></i> Port Harcourt</p>
+                                    </div>
+                                </div>
+                                <div class="action-btns">
+                                    <button class="btn-accept"><i class="bi bi-check"></i></button>
+                                    <button class="btn-decline"><i class="bi bi-x"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ongoing Jobs -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Ongoing Jobs</h3>
+                        <button class="icon-btn-small">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="project-list">
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <img src="https://ui-avatars.com/api/?name=David+Lee&background=10b981&color=fff" alt="Customer">
+                                    <div>
+                                        <h4>Kitchen Renovation</h4>
+                                        <p><i class="bi bi-person"></i> David Lee</p>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 75%"></div>
+                                        </div>
+                                        <p class="progress-text">75% Complete</p>
+                                    </div>
+                                </div>
+                                <span class="status-badge in-progress">Active</span>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <img src="https://ui-avatars.com/api/?name=Emma+Davis&background=f59e0b&color=fff" alt="Customer">
+                                    <div>
+                                        <h4>Bathroom Tiling</h4>
+                                        <p><i class="bi bi-person"></i> Emma Davis</p>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 40%"></div>
+                                        </div>
+                                        <p class="progress-text">40% Complete</p>
+                                    </div>
+                                </div>
+                                <span class="status-badge in-progress">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings Chart & Recent Reviews -->
+            <div class="content-grid">
+                <!-- Earnings Summary -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Earnings This Month</h3>
+                        <select class="month-selector">
+                            <option>November 2025</option>
+                            <option>October 2025</option>
+                            <option>September 2025</option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+                        <div class="earnings-summary">
+                            <div class="earning-item">
+                                <span class="earning-label">Completed Jobs</span>
+                                <h3 class="earning-value">₦450,000</h3>
+                            </div>
+                            <div class="earning-item">
+                                <span class="earning-label">Pending Payments</span>
+                                <h3 class="earning-value">₦120,000</h3>
+                            </div>
+                            <div class="earning-item">
+                                <span class="earning-label">Withdrawn</span>
+                                <h3 class="earning-value">₦300,000</h3>
+                            </div>
+                        </div>
+                        <button class="btn-withdraw">
+                            <i class="bi bi-cash-coin me-2"></i>
+                            Withdraw Funds
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Reviews -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Reviews</h3>
+                        <a href="#" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="review-list">
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <img src="https://ui-avatars.com/api/?name=Frank+Moore&background=6366f1&color=fff" alt="Customer">
+                                    <div>
+                                        <h4>Frank Moore</h4>
+                                        <div class="stars">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="review-text">"Excellent work! Very professional and completed on time."</p>
+                                <span class="review-time">2 days ago</span>
+                            </div>
+
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <img src="https://ui-avatars.com/api/?name=Grace+Wilson&background=8b5cf6&color=fff" alt="Customer">
+                                    <div>
+                                        <h4>Grace Wilson</h4>
+                                        <div class="stars">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="review-text">"Good service, would recommend to others."</p>
+                                <span class="review-time">5 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>

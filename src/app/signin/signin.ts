@@ -13,6 +13,9 @@ export class Signin {
   private builder = inject(FormBuilder)
   private http = inject(HttpClient)
   private router = inject(Router);
+  
+  showPassword: boolean = false;
+  loading: boolean = false;
 
   signinForm = this.builder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -27,15 +30,44 @@ export class Signin {
     this.messageType = null;
     this.messageTitle = null;
   }
+  
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+  
   login() {
-    this.http.post('http://localhost/SkillBridge/Auth.php', this.signinForm.value)
-      .subscribe((response: any) => {
-        if (response.status === 200) {
-          // Direct to dashboard page
-          console.log("I will go to dashboard")
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.message = response.message;
+    if (!this.signinForm.valid) {
+      this.message = 'Please fill all fields correctly';
+      this.messageType = 'danger';
+      this.messageTitle = 'Validation Error';
+      return;
+    }
+
+    this.loading = true;
+    this.http.post('http://localhost/SkillBridge/auth/signin', this.signinForm.value)
+      .subscribe({
+        next: (response: any) => {
+          this.loading = false;
+          if (response.status === 200) {
+            localStorage.setItem('token', response.token);
+            this.message = 'Login successful!';
+            this.messageType = 'success';
+            this.messageTitle = 'Success';
+            
+            setTimeout(() => {
+              this.router.navigate(['/dashboard']);
+            }, 1500);
+          } else {
+            this.message = response.message || 'Login failed';
+            this.messageType = 'danger';
+            this.messageTitle = 'Error';
+          }
+        },
+        error: (error) => {
+          this.loading = false;
+          this.message = 'An error occurred. Please try again.';
+          this.messageType = 'danger';
+          this.messageTitle = 'Error';
         }
       });
   }

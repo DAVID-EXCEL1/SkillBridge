@@ -1,147 +1,190 @@
-<!-- admin-dashboard.component.html -->
-<div class="d-flex" id="wrapper">
-
+<!-- Modern Admin Dashboard -->
+<div class="dashboard-wrapper">
+    <!-- Mobile Backdrop -->
+    <div class="sidebar-backdrop" [class.active]="isSidebarCollapsed" (click)="toggleSidebar()"></div>
+    
     <!-- Sidebar -->
-    <div class="border-end bg-dark text-white" id="sidebar-wrapper">
-        <div class="sidebar-heading py-4 text-center fw-bold fs-5 border-bottom border-secondary">
-            <i class="bi bi-speedometer2 me-2"></i> SkillBridge Admin
-        </div>
-
-        <div class="list-group list-group-flush">
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white active">
-                <i class="bi bi-house-door-fill me-2"></i> Dashboard
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <i class="bi bi-people-fill me-2"></i> Artisans
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <i class="bi bi-person-lines-fill me-2"></i> Customers
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <i class="bi bi-briefcase-fill me-2"></i> Services
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <i class="bi bi-cash-stack me-2"></i> Payments
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <i class="bi bi-chat-dots-fill me-2"></i> Reviews
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <i class="bi bi-gear-fill me-2"></i> Settings
-            </a>
-        </div>
-    </div>
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper" class="w-100 bg-light">
-
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 shadow-sm">
-            <div class="container-fluid">
-                <button class="btn btn-outline-dark me-3" id="menu-toggle">
-                    <i class="bi bi-list"></i>
-                </button>
-                <h5 class="fw-bold text-dark mb-0">Admin Dashboard</h5>
-                <div class="d-flex align-items-center ms-auto">
-                    <a href="#" class="me-3 text-dark"><i class="bi bi-bell fs-5"></i></a>
-                    <a href="#" class="me-3 text-dark"><i class="bi bi-person-circle fs-5"></i></a>
-                </div>
+    <aside class="sidebar admin" [class.collapsed]="isSidebarCollapsed">
+        <div class="sidebar-header">
+            <div class="brand">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+                </svg>
+                <span class="brand-text">Admin Panel</span>
             </div>
+            <button class="toggle-btn" (click)="toggleSidebar()">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-link active">
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-people"></i>
+                <span>Artisans</span>
+                <span class="badge">{{artisans.length}}</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-person-lines-fill"></i>
+                <span>Customers</span>
+                <span class="badge">154</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-briefcase"></i>
+                <span>Services</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-cart-check"></i>
+                <span>Orders</span>
+                <span class="badge">240</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-cash-stack"></i>
+                <span>Payments</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-star"></i>
+                <span>Reviews</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-graph-up"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
         </nav>
 
-        <div class="container-fluid px-4 py-4">
+        <div class="sidebar-footer">
+            <button class="logout-btn" (click)="logout()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
 
-            <!-- Overview Cards -->
-            <div class="row g-3 mb-4">
-                <div class="col-md-3" *ngFor="let stat of adminStats">
-                    <div class="card border-0 shadow-sm text-center">
-                        <div class="card-body">
-                            <i [class]="stat.icon + ' fs-2 ' + stat.color"></i>
-                            <h6 class="mt-2">{{ stat.title }}</h6>
-                            <h4 class="fw-bold text-dark">{{ stat.value }}</h4>
-                        </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="mobile-toggle" (click)="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search artisans, customers, orders...">
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <button class="icon-btn notifications-btn">
+                    <i class="bi bi-bell"></i>
+                    <span class="notification-dot"></span>
+                </button>
+                <button class="icon-btn messages-btn">
+                    <i class="bi bi-envelope"></i>
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=ef4444&color=fff" alt="Admin">
+                    <div class="user-info">
+                        <span class="user-name">Admin</span>
+                        <span class="user-role">Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section admin">
+                <div class="welcome-text">
+                    <h1>Welcome back, <span class="gradient-text">Admin</span>! 👨‍💼</h1>
+                    <p>Here's an overview of your platform's performance today.</p>
+                </div>
+                <button class="btn-primary">
+                    <i class="bi bi-plus-lg me-2"></i>
+                    Generate Report
+                </button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card" *ngFor="let stat of adminStats">
+                    <div class="stat-icon" [ngClass]="{
+                        'purple': stat.color === 'text-primary',
+                        'green': stat.color === 'text-success',
+                        'orange': stat.color === 'text-warning',
+                        'red': stat.color === 'text-danger'
+                    }">
+                        <i [class]="stat.icon"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">{{stat.title}}</span>
+                        <h3 class="stat-value">{{stat.value}}</h3>
+                        <span class="stat-change positive">
+                            <i class="bi bi-arrow-up"></i> Active
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <!-- User Management Table -->
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white fw-bold fs-5 d-flex justify-content-between align-items-center">
-                    <span>Registered Artisans</span>
-                    <button class="btn btn-sm btn-dark">
-                        <i class="bi bi-plus-circle me-1"></i> Add Artisan
-                    </button>
-                </div>
-                <div class="card-body table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Skill</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let artisan ; index as i">
-                                <td>{{ i + 1 }}</td>
-                                <td>{{ artisan.name }}</td>
-                                <td>{{ artisan.skill }}</td>
-                                <td>{{ artisan.email }}</td>
-                                <td>{{ artisan.phone }}</td>
-                                <td>
-                                    <span class="badge" [ngClass]="{
-                'bg-success': artisan.status === 'Active',
-                'bg-danger': artisan.status === 'Suspended'
-                }">{{ artisan.status }}</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Service and Payment Overview -->
-            <div class="row g-3 mb-4">
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-white fw-bold fs-5">Top Services</div>
-                        <div class="card-body">
-                            <ul class="list-group">
-                                <li *ngFor="let service of topServices
-                                "
-                                    class="list-group-item d-flex justify-content-between">
-                                    <span>{{ service.name }}</span>
-                                    <span class="fw-bold">{{ service.bookings }} bookings</span>
-                                </li>
-                            </ul>
-                        </div>
+            <!-- Two Column Layout -->
+            <div class="content-grid">
+                <!-- Artisans Management -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Artisan Management</h3>
+                        <a href="#" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
                     </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-white fw-bold fs-5">Recent Payments</div>
-                        <div class="card-body">
-                            <table class="table align-middle">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="modern-table">
                                 <thead>
                                     <tr>
-                                        <th>Customer</th>
-                                        <th>Amount</th>
+                                        <th>Name</th>
+                                        <th>Skill</th>
                                         <th>Status</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let payment of recentPayments">
-                                        <td>{{ payment.customer }}</td>
-                                        <td>₦{{ payment.amount | number }}</td>
+                                    <tr *ngFor="let artisan of artisans">
                                         <td>
-                                            <span class="badge" [ngClass]="{
-                    'bg-success': payment.status === 'Completed',
-                    'bg-warning text-dark': payment.status === 'Pending'
-                    }">{{ payment.status }}</span>
+                                            <div class="user-cell">
+                                                <img [src]="'https://ui-avatars.com/api/?name=' + artisan.name + '&background=6366f1&color=fff'" [alt]="artisan.name">
+                                                <div>
+                                                    <strong>{{artisan.name}}</strong>
+                                                    <span>{{artisan.email}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="skill-badge">{{artisan.skill}}</span></td>
+                                        <td>
+                                            <span class="status-badge" [ngClass]="{
+                                                'completed': artisan.status === 'Active',
+                                                'pending': artisan.status === 'Suspended'
+                                            }">{{artisan.status}}</span>
+                                        </td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <button class="btn-icon" title="View">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                                <button class="btn-icon" title="Edit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+                                                <button class="btn-icon danger" title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -149,27 +192,156 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Recent Reviews -->
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white fw-bold fs-5">Recent Reviews</div>
-                <div class="card-body">
-                    <div *ngFor="let review of reviews" class="border-bottom py-3">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h6 class="fw-bold mb-1">{{ review.customer }}</h6>
-                                <p class="mb-1 text-muted">{{ review.comment }}</p>
-                                <span class="text-warning">
-                                    <i class="bi bi-star-fill" *ngFor="let star of [].constructor(review.rating)"></i>
-                                </span>
+                <!-- Top Services -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Top Services</h3>
+                        <button class="icon-btn-small">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="service-list">
+                            <div class="service-item" *ngFor="let service of topServices; let i = index">
+                                <div class="service-rank" [ngClass]="'rank-' + (i + 1)">{{i + 1}}</div>
+                                <div class="service-info">
+                                    <h4>{{service.name}}</h4>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" [style.width.%]="(service.bookings / topServices[0].bookings) * 100"></div>
+                                    </div>
+                                </div>
+                                <div class="service-count">
+                                    <strong>{{service.bookings}}</strong>
+                                    <span>bookings</span>
+                                </div>
                             </div>
-                            <small class="text-muted">{{ review.date | date:'mediumDate' }}</small>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Payment & Reviews Grid -->
+            <div class="content-grid">
+                <!-- Recent Payments -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Payments</h3>
+                        <a href="#" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="payment-list">
+                            <div class="payment-item" *ngFor="let payment of recentPayments">
+                                <div class="payment-icon" [ngClass]="{
+                                    'green': payment.status === 'Completed',
+                                    'orange': payment.status === 'Pending'
+                                }">
+                                    <i class="bi" [ngClass]="{
+                                        'bi-check-circle-fill': payment.status === 'Completed',
+                                        'bi-clock-fill': payment.status === 'Pending'
+                                    }"></i>
+                                </div>
+                                <div class="payment-info">
+                                    <h4>{{payment.customer}}</h4>
+                                    <span class="status-badge" [ngClass]="{
+                                        'completed': payment.status === 'Completed',
+                                        'pending': payment.status === 'Pending'
+                                    }">{{payment.status}}</span>
+                                </div>
+                                <div class="payment-amount">₦{{payment.amount | number}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Reviews -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Reviews</h3>
+                        <a href="#" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="review-list">
+                            <div class="review-item" *ngFor="let review of reviews">
+                                <div class="review-header">
+                                    <img [src]="'https://ui-avatars.com/api/?name=' + review.customer + '&background=8b5cf6&color=fff'" [alt]="review.customer">
+                                    <div>
+                                        <h4>{{review.customer}}</h4>
+                                        <div class="stars">
+                                            <i class="bi" *ngFor="let star of [1,2,3,4,5]" [ngClass]="{
+                                                'bi-star-fill': star <= review.rating,
+                                                'bi-star': star > review.rating
+                                            }"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="review-text">{{review.comment}}</p>
+                                <span class="review-time">{{review.date | date: 'MMM d, y'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Analytics -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Platform Performance</h3>
+                    <select class="month-selector">
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Last 90 Days</option>
+                        <option>This Year</option>
+                    </select>
+                </div>
+                <div class="card-body">
+                    <div class="analytics-grid">
+                        <div class="analytic-card">
+                            <div class="analytic-icon purple">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+                            <div class="analytic-content">
+                                <span class="analytic-label">Platform Growth</span>
+                                <h3 class="analytic-value">+25%</h3>
+                                <p class="analytic-desc">Compared to last month</p>
+                            </div>
+                        </div>
+
+                        <div class="analytic-card">
+                            <div class="analytic-icon green">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+                            <div class="analytic-content">
+                                <span class="analytic-label">Active Users</span>
+                                <h3 class="analytic-value">1,234</h3>
+                                <p class="analytic-desc">Currently online</p>
+                            </div>
+                        </div>
+
+                        <div class="analytic-card">
+                            <div class="analytic-icon orange">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div class="analytic-content">
+                                <span class="analytic-label">Avg Response Time</span>
+                                <h3 class="analytic-value">2.5h</h3>
+                                <p class="analytic-desc">Artisan response time</p>
+                            </div>
+                        </div>
+
+                        <div class="analytic-card">
+                            <div class="analytic-icon red">
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <div class="analytic-content">
+                                <span class="analytic-label">Customer Satisfaction</span>
+                                <h3 class="analytic-value">4.8/5</h3>
+                                <p class="analytic-desc">Average rating</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 </div>

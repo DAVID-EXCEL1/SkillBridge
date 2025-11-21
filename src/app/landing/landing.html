@@ -1,298 +1,487 @@
-<div class="landing-page">
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm py-3">
+<!-- Modern Landing Page -->
+<div class="landing-wrapper">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
         <div class="container">
-            <a class="navbar-brand fw-bolder fs-3 text-primary" href="#">
-                <i class="bi bi-briefcase-fill me-2"></i>SkillBridge
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <div class="nav-brand">
+                <svg width="40" height="40" viewBox="0 0 32 32" fill="url(#gradient1)">
+                    <defs>
+                        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1"/>
+                            <stop offset="100%" style="stop-color:#d946ef"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M16 2L2 9v14c0 7.7 5.8 14 14 14s14-6.3 14-14V9L16 2z"/>
+                </svg>
+                <span class="brand-text">SkillBridge</span>
+            </div>
+            
+            <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+                <i class="bi bi-list"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-semibold">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Find Talent</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Post a Job</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Resources</a>
-                    </li>
-                    <li class="nav-item me-lg-2">
-                        <a class="nav-link text-dark" href="#">About</a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center">
-                    <a routerLink="/signin" class="btn btn-outline-primary me-2 rounded-pill fw-semibold">Sign In</a>
-                    <a routerLink="/signup" class="btn btn-primary rounded-pill fw-semibold">Get Started</a>
+
+            <div class="nav-menu" [class.active]="isMobileMenuOpen">
+                <div class="nav-links">
+                    <a href="#categories" class="nav-link">Find Talent</a>
+                    <a href="#how-it-works" class="nav-link">How It Works</a>
+                    <a href="#featured" class="nav-link">Featured</a>
+                    <a href="#" class="nav-link">Resources</a>
+                </div>
+                <div class="nav-actions">
+                    <a routerLink="/signin" class="btn-outline">Sign In</a>
+                    <a routerLink="/signup" class="btn-gradient">Get Started</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="py-5 text-center bg-light-subtle">
-        <div class="container py-5">
-            <h1 class="animate-on-scroll fw-bolder display-5 text-dark mb-4 px-lg-5">
-                Access Nigeria's Largest Pool of <span class="text-primary">Skilled Workers</span>
-            </h1>
-            <p class="lead text-secondary mb-4 px-lg-5">
-                Connect with top-tier professionals across all industries. From tech experts to
-                creative talents, find the perfect match for your project needs.
-            </p>
-            <div class="d-flex justify-content-center gap-3 mb-5">
-                <button class="btn btn-primary btn-lg rounded-pill fw-bold shadow-sm">
-                    Hire Talent
-                </button>
-                <button class="btn btn-outline-primary btn-lg rounded-pill fw-bold">
-                    Join as Freelancer
-                </button>
-            </div>
-
-            <div class="d-flex justify-content-center flex-wrap gap-4 text-secondary small pt-3">
-                <span class="d-flex align-items-center">
-                    <i class="bi bi-people-fill me-2 text-primary fs-5"></i>
-                    **10,000+** Skilled Workers
-                </span>
-                <span class="d-flex align-items-center">
-                    <i class="bi bi-building me-2 text-primary fs-5"></i>
-                    **1500+** Companies Trust Us
-                </span>
-                <span class="d-flex align-items-center">
-                    <i class="bi bi-star-fill me-2 text-primary fs-5"></i>
-                    **4.8/5** Average Rating
-                </span>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
         </div>
-    </header>
-
-    <section class="py-5">
+        
         <div class="container">
-            <h2 class="text-center fw-bold text-dark mb-5">Browse by Category</h2>
-            <div class="row g-4 justify-content-center">
+            <div class="hero-content">
+                <span class="hero-badge">
+                    <i class="bi bi-star-fill"></i>
+                    Nigeria's #1 Talent Marketplace
+                </span>
+                
+                <h1 class="hero-title">
+                    Access Nigeria's Largest Pool of
+                    <span class="gradient-text">Skilled Professionals</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Connect with top-tier professionals across all industries. From tech experts to
+                    creative talents, find the perfect match for your project needs.
+                </p>
 
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card animate-on-scroll p-4 rounded-4 shadow-sm h-100">
-                        <div class="d-flex align-items-center mb-3">
-                            <span class="bg-primary text-white p-2 rounded-circle me-3 fw-bold">1</span>
-                            <h5 class="fw-bold mb-0 text-dark">Technology</h5>
-                        </div>
-                        <p class="text-secondary small mb-1">Web developers, mobile app experts, data analysts...</p>
-                        <p class="text-primary fw-semibold small mb-0">2,500+ professionals</p>
-                    </div>
+                <div class="hero-actions">
+                    <a routerLink="/signup" class="btn-hero-primary">
+                        <span>Find Talent Now</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                    <a routerLink="/artisan-signup" class="btn-hero-secondary">
+                        <span>Join as Professional</span>
+                        <i class="bi bi-briefcase"></i>
+                    </a>
                 </div>
 
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card animate-on-scroll p-4 rounded-4 shadow-sm h-100">
-                        <div class="d-flex align-items-center mb-3">
-                            <span class="bg-primary text-white p-2 rounded-circle me-3 fw-bold">2</span>
-                            <h5 class="fw-bold mb-0 text-dark">Design</h5>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="bi bi-people-fill"></i>
                         </div>
-                        <p class="text-secondary small mb-1">UX/UI designers, graphic designers, illustrators, video
-                            editors...</p>
-                        <p class="text-primary fw-semibold small mb-0">1,800+ professionals</p>
+                        <div class="stat-info">
+                            <h3>10,000+</h3>
+                            <p>Skilled Workers</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>1,500+</h3>
+                            <p>Companies Trust Us</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>4.8/5</h3>
+                            <p>Average Rating</p>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card animate-on-scroll p-4 rounded-4 shadow-sm h-100">
-                        <div class="d-flex align-items-center mb-3">
-                            <span class="bg-primary text-white p-2 rounded-circle me-3 fw-bold">3</span>
-                            <h5 class="fw-bold mb-0 text-dark">Marketing</h5>
-                        </div>
-                        <p class="text-secondary small mb-1">Digital marketers, content creators, SEO specialists...</p>
-                        <p class="text-primary fw-semibold small mb-0">1,200+ professionals</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card animate-on-scroll p-4 rounded-4 shadow-sm h-100">
-                        <div class="d-flex align-items-center mb-3">
-                            <span class="bg-primary text-white p-2 rounded-circle me-3 fw-bold">4</span>
-                            <h5 class="fw-bold mb-0 text-dark">Others</h5>
-                        </div>
-                        <p class="text-secondary small mb-1">Welders, carpenters, repairers, technicians, writers...</p>
-                        <p class="text-primary fw-semibold small mb-0">800+ professionals</p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <section class="py-5 bg-light-subtle">
+    <!-- Categories Section -->
+    <section class="categories-section" id="categories">
         <div class="container">
-            <h2 class="text-center fw-bold text-dark mb-5">Featured Talent</h2>
-            <div class="row g-4 justify-content-center">
+            <div class="section-header">
+                <span class="section-badge">Popular Categories</span>
+                <h2 class="section-title">Browse by Category</h2>
+                <p class="section-subtitle">Explore diverse talent across multiple industries</p>
+            </div>
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="card animate-on-scroll p-4 rounded-4 shadow-sm h-100">
-                        <h5 class="fw-bold text-dark mb-1">Adekunle Ogunbade</h5>
-                        <p class="text-primary fw-semibold small mb-3">Full Stack Developer</p>
-                        <div class="mb-3">
-                            <span class="text-warning me-1"><i class="bi bi-star-fill"></i></span>4.9 (45 Jobs)
-                        </div>
-                        <p class="text-secondary small mb-3">Superpassionate with Java, React.js, and Python. Built 50+
-                            applications for startups in Europe and North America.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="fw-bold text-dark">₦15,000/Hour</span>
-                            <button class="btn btn-outline-primary btn-sm rounded-pill fw-semibold">View
-                                Profile</button>
-                        </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon purple">
+                        <i class="bi bi-code-slash"></i>
+                    </div>
+                    <h3>Technology</h3>
+                    <p>Web developers, mobile app experts, data analysts, software engineers</p>
+                    <div class="category-footer">
+                        <span class="category-count">2,500+ professionals</span>
+                        <button class="btn-text">
+                            Explore <i class="bi bi-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="card animate-on-scroll p-4 rounded-4 shadow-sm h-100">
-                        <h5 class="fw-bold text-dark mb-1">Funmi Sadeqwe</h5>
-                        <p class="text-primary fw-semibold small mb-3">UX/UI Designer</p>
-                        <div class="mb-3">
-                            <span class="text-warning me-1"><i class="bi bi-star-fill"></i></span>5.0 (22 Jobs)
-                        </div>
-                        <p class="text-secondary small mb-3">Specialized in mobile app design and user research. Helped
-                            10+ startups achieve design awards for brand campaigns.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="fw-bold text-dark">₦12,000/Hour</span>
-                            <button class="btn btn-outline-primary btn-sm rounded-pill fw-semibold">View
-                                Profile</button>
-                        </div>
+                <div class="category-card">
+                    <div class="category-icon pink">
+                        <i class="bi bi-palette-fill"></i>
+                    </div>
+                    <h3>Design & Creative</h3>
+                    <p>UX/UI designers, graphic designers, illustrators, video editors</p>
+                    <div class="category-footer">
+                        <span class="category-count">1,800+ professionals</span>
+                        <button class="btn-text">
+                            Explore <i class="bi bi-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="card animate-on-scroll p-4 rounded-4 shadow-sm h-100">
-                        <h5 class="fw-bold text-dark mb-1">Chidi Okezu</h5>
-                        <p class="text-primary fw-semibold small mb-3">Digital Marketing Expert</p>
-                        <div class="mb-3">
-                            <span class="text-warning me-1"><i class="bi bi-star-fill"></i></span>4.8 (31 Jobs)
-                        </div>
-                        <p class="text-secondary small mb-3">Growth hacker with 10+ years experience. Helped 20+ SMEs
-                            increase revenue by 20% in the last 1 year.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="fw-bold text-dark">₦8,000/Hour</span>
-                            <button class="btn btn-outline-primary btn-sm rounded-pill fw-semibold">View
-                                Profile</button>
-                        </div>
+                <div class="category-card">
+                    <div class="category-icon green">
+                        <i class="bi bi-megaphone-fill"></i>
+                    </div>
+                    <h3>Marketing</h3>
+                    <p>Digital marketers, content creators, SEO specialists, social media experts</p>
+                    <div class="category-footer">
+                        <span class="category-count">1,200+ professionals</span>
+                        <button class="btn-text">
+                            Explore <i class="bi bi-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
 
+                <div class="category-card">
+                    <div class="category-icon blue">
+                        <i class="bi bi-hammer"></i>
+                    </div>
+                    <h3>Construction & Trades</h3>
+                    <p>Welders, carpenters, electricians, plumbers, masons, painters</p>
+                    <div class="category-footer">
+                        <span class="category-count">3,500+ professionals</span>
+                        <button class="btn-text">
+                            Explore <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon orange">
+                        <i class="bi bi-scissors"></i>
+                    </div>
+                    <h3>Fashion & Beauty</h3>
+                    <p>Tailors, fashion designers, hairstylists, makeup artists, barbers</p>
+                    <div class="category-footer">
+                        <span class="category-count">2,100+ professionals</span>
+                        <button class="btn-text">
+                            Explore <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon indigo">
+                        <i class="bi bi-tools"></i>
+                    </div>
+                    <h3>Repairs & Maintenance</h3>
+                    <p>Auto mechanics, appliance repairers, AC technicians, phone repairs</p>
+                    <div class="category-footer">
+                        <span class="category-count">1,900+ professionals</span>
+                        <button class="btn-text">
+                            Explore <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-5">
-        <div class="container py-4">
-            <h2 class="text-center fw-bold text-dark mb-5">How It Works</h2>
-            <div class="row g-5 text-center">
-
-                <div class="col-lg-4">
-                    <div class="mb-3 mx-auto p-4 border border-primary border-4 rounded-circle d-inline-block text-primary fw-bold fs-4"
-                        style="width: 80px; height: 80px; line-height: 1;">
-                        1
-                    </div>
-                    <h5 class="fw-bold text-dark mt-3">Post Your Project</h5>
-                    <p class="text-secondary px-lg-3">Describe your project requirements, timeline, and budget. Our AI
-                        will match you with relevant talent.</p>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="mb-3 mx-auto p-4 border border-primary border-4 rounded-circle d-inline-block text-primary fw-bold fs-4"
-                        style="width: 80px; height: 80px; line-height: 1;">
-                        2
-                    </div>
-                    <h5 class="fw-bold text-dark mt-3">Review Proposals</h5>
-                    <p class="text-secondary px-lg-3">Receive proposals from qualified professionals. Review portfolios,
-                        interview, and pre-screen work samples.</p>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="mb-3 mx-auto p-4 border border-primary border-4 rounded-circle d-inline-block text-primary fw-bold fs-4"
-                        style="width: 80px; height: 80px; line-height: 1;">
-                        3
-                    </div>
-                    <h5 class="fw-bold text-dark mt-3">Start Working</h5>
-                    <p class="text-secondary px-lg-3">Collaborate with your chosen talent through our platform. Track
-                        progress and make secure payments.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5 bg-dark text-white text-center">
-        <div class="container py-4">
-            <h2 class="fw-bolder display-6 mb-3">Ready to Find Your Perfect Match?</h2>
-            <p class="lead text-light mb-4">
-                Join thousands of businesses that trust SkillBridge for their project needs.
-            </p>
-            <div class="d-flex justify-content-center gap-3">
-                <button class="btn btn-primary btn-lg rounded-pill fw-bold shadow-sm">
-                    Start Hiring Today
-                </button>
-                <button class="btn btn-outline-light btn-lg rounded-pill fw-bold">
-                    Learn More
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-5 bg-white">
+    <!-- Featured Talent Section -->
+    <section class="talent-section" id="featured">
         <div class="container">
-            <div class="row">
+            <div class="section-header">
+                <span class="section-badge">Top Rated</span>
+                <h2 class="section-title">Featured Talent</h2>
+                <p class="section-subtitle">Discover highly-rated professionals ready to work on your project</p>
+            </div>
 
-                <div class="col-lg-4 mb-4">
-                    <h5 class="fw-bolder fs-3 text-primary mb-3">
-                        <i class="bi bi-briefcase-fill me-2"></i>SkillBridge
-                    </h5>
-                    <p class="text-secondary small">Connecting businesses with Nigeria's best talent.</p>
-                    <div class="d-flex fs-4 gap-3 text-primary">
-                        <a href="#" class="text-decoration-none text-primary"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="text-decoration-none text-primary"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="text-decoration-none text-primary"><i class="bi bi-instagram"></i></a>
+            <div class="talent-grid">
+                <div class="talent-card">
+                    <div class="talent-header">
+                        <img src="https://ui-avatars.com/api/?name=Adekunle+Ogunbade&background=6366f1&color=fff&size=100" alt="Adekunle Ogunbade" class="talent-avatar">
+                        <button class="btn-favorite">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                    </div>
+                    <div class="talent-body">
+                        <h3>Adekunle Ogunbade</h3>
+                        <p class="talent-role">Full Stack Developer</p>
+                        <div class="talent-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <span>4.9 (45 jobs)</span>
+                        </div>
+                        <p class="talent-description">
+                            Expert in Java, React.js, and Python. Built 50+ applications for startups in Europe and North America.
+                        </p>
+                        <div class="talent-skills">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Python</span>
+                        </div>
+                    </div>
+                    <div class="talent-footer">
+                        <div class="talent-rate">
+                            <span class="rate-label">Starting at</span>
+                            <span class="rate-value">₦15,000/hr</span>
+                        </div>
+                        <button class="btn-outline-small">View Profile</button>
                     </div>
                 </div>
 
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <h6 class="fw-bold text-dark mb-3">For Clients</h6>
-                    <ul class="list-unstyled small">
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">How to Hire</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">Talent Showcase</a>
-                        </li>
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">Project Catalog</a>
-                        </li>
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">Resources Articles</a>
-                        </li>
-                    </ul>
+                <div class="talent-card featured">
+                    <div class="featured-badge">
+                        <i class="bi bi-star-fill"></i>
+                        Top Rated
+                    </div>
+                    <div class="talent-header">
+                        <img src="https://ui-avatars.com/api/?name=Funmi+Sadeqwe&background=d946ef&color=fff&size=100" alt="Funmi Sadeqwe" class="talent-avatar">
+                        <button class="btn-favorite active">
+                            <i class="bi bi-heart-fill"></i>
+                        </button>
+                    </div>
+                    <div class="talent-body">
+                        <h3>Funmi Sadeqwe</h3>
+                        <p class="talent-role">UX/UI Designer</p>
+                        <div class="talent-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <span>5.0 (22 jobs)</span>
+                        </div>
+                        <p class="talent-description">
+                            Specialized in mobile app design and user research. Helped 10+ startups achieve design excellence.
+                        </p>
+                        <div class="talent-skills">
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">UI/UX</span>
+                            <span class="skill-tag">Mobile</span>
+                        </div>
+                    </div>
+                    <div class="talent-footer">
+                        <div class="talent-rate">
+                            <span class="rate-label">Starting at</span>
+                            <span class="rate-value">₦12,000/hr</span>
+                        </div>
+                        <button class="btn-gradient-small">View Profile</button>
+                    </div>
                 </div>
 
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <h6 class="fw-bold text-dark mb-3">For Talent</h6>
-                    <ul class="list-unstyled small">
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">How to Find Work</a>
-                        </li>
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">Build Your Profile</a>
-                        </li>
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">Find Freelance Jobs</a>
-                        </li>
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">Success Stories</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <h6 class="fw-bold text-dark mb-3">Company</h6>
-                    <ul class="list-unstyled small">
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">About Us</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">Leadership</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">Careers</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary mb-1 d-block">Contact</a></li>
-                    </ul>
+                <div class="talent-card">
+                    <div class="talent-header">
+                        <img src="https://ui-avatars.com/api/?name=Chidi+Okezu&background=10b981&color=fff&size=100" alt="Chidi Okezu" class="talent-avatar">
+                        <button class="btn-favorite">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                    </div>
+                    <div class="talent-body">
+                        <h3>Chidi Okezu</h3>
+                        <p class="talent-role">Digital Marketing Expert</p>
+                        <div class="talent-rating">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <span>4.8 (31 jobs)</span>
+                        </div>
+                        <p class="talent-description">
+                            Growth hacker with 10+ years experience. Helped 20+ SMEs increase revenue by 200% annually.
+                        </p>
+                        <div class="talent-skills">
+                            <span class="skill-tag">SEO</span>
+                            <span class="skill-tag">Ads</span>
+                            <span class="skill-tag">Growth</span>
+                        </div>
+                    </div>
+                    <div class="talent-footer">
+                        <div class="talent-rate">
+                            <span class="rate-label">Starting at</span>
+                            <span class="rate-value">₦8,000/hr</span>
+                        </div>
+                        <button class="btn-outline-small">View Profile</button>
+                    </div>
                 </div>
             </div>
-            <!-- <div class="border-top pt-3 mt-4 text-center">
-                <p class="small text-muted mb-0">&copy; {{'2025' | date:'yyyy'}} SkillBridge. All rights reserved.</p>
-            </div> -->
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-section" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Simple Process</span>
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Get started in three easy steps</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon purple">
+                        <i class="bi bi-file-earmark-text-fill"></i>
+                    </div>
+                    <h3>Post Your Project</h3>
+                    <p>Describe your project requirements, timeline, and budget. Our AI will match you with relevant talent instantly.</p>
+                </div>
+
+                <div class="step-connector">
+                    <i class="bi bi-arrow-right"></i>
+                </div> 
+
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon pink">
+                        <i class="bi bi-chat-dots-fill"></i>
+                    </div>
+                    <h3>Review Proposals</h3>
+                    <p>Receive proposals from qualified professionals. Review portfolios, ratings, and conduct interviews.</p>
+                </div>
+
+                <div class="step-connector">
+                    <i class="bi bi-arrow-right"></i>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon green">
+                        <i class="bi bi-rocket-takeoff-fill"></i>
+                    </div>
+                    <h3>Start Working</h3>
+                    <p>Collaborate seamlessly through our platform. Track progress, communicate, and make secure payments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-background">
+            <div class="gradient-orb orb-cta-1"></div>
+            <div class="gradient-orb orb-cta-2"></div>
+        </div>
+        
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Find Your Perfect Match?</h2>
+                <p>Join thousands of businesses that trust SkillBridge for their project needs.</p>
+                <div class="cta-buttons">
+                    <a routerLink="/signup" class="btn-cta-primary">
+                        <i class="bi bi-rocket-takeoff"></i>
+                        <span>Start Hiring Today</span>
+                    </a>
+                    <a routerLink="/artisan-signup" class="btn-cta-secondary">
+                        <i class="bi bi-briefcase"></i>
+                        <span>Join as Professional</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="brand-logo">
+                        <svg width="40" height="40" viewBox="0 0 32 32" fill="url(#gradient2)">
+                            <defs>
+                                <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#6366f1"/>
+                                    <stop offset="100%" style="stop-color:#d946ef"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M16 2L2 9v14c0 7.7 5.8 14 14 14s14-6.3 14-14V9L16 2z"/>
+                        </svg>
+                        <span>SkillBridge</span>
+                    </div>
+                    <p>Connecting businesses with Nigeria's best talent.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>For Clients</h4>
+                        <ul>
+                            <li><a href="#">How to Hire</a></li>
+                            <li><a href="#">Talent Showcase</a></li>
+                            <li><a href="#">Project Catalog</a></li>
+                            <li><a href="#">Resources</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>For Talent</h4>
+                        <ul>
+                            <li><a href="#">How to Find Work</a></li>
+                            <li><a href="#">Build Your Profile</a></li>
+                            <li><a href="#">Find Jobs</a></li>
+                            <li><a href="#">Success Stories</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Leadership</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Trust & Safety</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 SkillBridge. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
         </div>
     </footer>
 </div>

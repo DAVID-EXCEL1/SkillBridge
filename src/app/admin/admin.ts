@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.css']
 })
 export class Admin implements OnInit {
+  isSidebarCollapsed: boolean = false;
+  
   // ===== Overview Stats =====
   adminStats = [
     { title: 'Total Artisans', value: 83, icon: 'bi bi-person-workspace', color: 'text-primary' },
@@ -50,5 +52,14 @@ export class Admin implements OnInit {
 
   ngOnInit(): void {
     console.log('Admin dashboard loaded successfully ✅');
+  }
+
+  toggleSidebar() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+
+  logout() {
+    // Implement logout logic
+    console.log('Logging out...');
   }
 }
