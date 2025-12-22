@@ -1,5 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { jwtDecode, } from 'jwt-decode';
+
+
+interface JwtPayload {
+  user_id: Number,
+  email: String,
+  first_name: String,
+  role: String,
+  iat: Number,
+  exp: Number,
+}
 
 @Component({
   selector: 'app-admin',
@@ -50,16 +63,31 @@ export class Admin implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    console.log('Admin dashboard loaded successfully ✅');
-  }
-
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
+user: any = "";
+  payload: any = '';
+  private _http = inject(HttpClient);
+  private _router = inject(Router);
+
+  ngOnInit(): void {
+    const token = localStorage['token'];
+    if (token) {
+      this.payload = jwtDecode<JwtPayload>(token);
+      this.user = this.payload.first_name;
+      console.log(this.payload.user_id);
+
+    }
+  }
+
   logout() {
-    // Implement logout logic
-    console.log('Logging out...');
+    localStorage.removeItem('token');
+    this._http.post('http://localhost/SkillBridge/adminAuth/logout', { admin_id: this.payload.user_id })
+      .subscribe(response => {
+        //route the user to the homepage
+        this._router.navigate(['/'])
+      })
   }
 }

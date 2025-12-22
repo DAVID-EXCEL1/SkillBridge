@@ -1,0 +1,134 @@
+<div id="body" class="d-flex align-items-center py-3">
+    <div class="container">
+        <div class="signup-card mx-auto">
+            <div class="text-center mb-3">
+                <div class="signup-icon mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor"
+                        class="bi bi-person-plus-fill text-success" viewBox="0 0 16 16">
+                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                        <path fill-rule="evenodd"
+                            d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                    </svg>
+                </div>
+                <h2 class="fw-bold text-success mb-1">Create Account</h2>
+                <p class="text-muted small">Join SkillBridge today and connect with skilled artisans</p>
+            </div>
+
+            <form [formGroup]="signupForm">
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label text-success fw-semibold">First Name</label>
+                            <input type="text" class="form-control form-control-lg" formControlName="first_name"
+                                placeholder="Enter your first name"
+                                [class.is-invalid]="signupForm.get('first_name')?.errors && signupForm.get('first_name')?.touched"
+                                [class.is-valid]="!signupForm.get('first_name')?.errors && signupForm.get('first_name')?.touched">
+                            @if (signupForm.get('first_name')?.errors && signupForm.get('first_name')?.dirty){
+                            <div class="invalid-feedback">
+                                <span *ngIf="signupForm.get('first_name')?.hasError('required')">First name is
+                                    required</span>
+                                <span *ngIf="signupForm.get('first_name')?.hasError('minlength')">Minimum 2 characters
+                                    required</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label text-success fw-semibold">Last Name</label>
+                            <input type="text" class="form-control form-control-lg" formControlName="last_name"
+                                placeholder="Enter your last name"
+                                [class.is-invalid]="signupForm.get('last_name')?.errors && signupForm.get('last_name')?.touched"
+                                [class.is-valid]="!signupForm.get('last_name')?.errors && signupForm.get('last_name')?.touched">
+                            @if (signupForm.get('last_name')?.errors && signupForm.get('last_name')?.dirty){
+                            <div class="invalid-feedback">
+                                <span *ngIf="signupForm.get('last_name')?.hasError('required')">Last name is
+                                    required</span>
+                                <span *ngIf="signupForm.get('last_name')?.hasError('minlength')">Minimum 2 characters
+                                    required</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label text-success fw-semibold">Email Address</label>
+                    <input type="email" class="form-control form-control-lg" formControlName="email"
+                        placeholder="example@email.com"
+                        [class.is-invalid]="signupForm.get('email')?.errors && signupForm.get('email')?.touched"
+                        [class.is-valid]="!signupForm.get('email')?.errors && signupForm.get('email')?.touched">
+                    @if (signupForm.get('email')?.errors && signupForm.get('email')?.dirty){
+                    <div class="invalid-feedback">
+                        <span *ngIf="signupForm.get('email')?.hasError('required')">Email is required</span>
+                        <span *ngIf="signupForm.get('email')?.hasError('email')">Please enter a valid email
+                            address</span>
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label text-success fw-semibold">Password</label>
+                    <input type="password" class="form-control form-control-lg" formControlName="password"
+                        placeholder="Create a strong password"
+                        [class.is-invalid]="signupForm.get('password')?.errors && signupForm.get('password')?.touched"
+                        [class.is-valid]="!signupForm.get('password')?.errors && signupForm.get('password')?.touched">
+                    @if (signupForm.get('password')?.errors && signupForm.get('password')?.dirty){
+                    <div class="invalid-feedback">
+                        <span *ngIf="signupForm.get('password')?.hasError('required')">Password is required</span>
+                        <span *ngIf="signupForm.get('password')?.hasError('pattern')">
+                            Password must be at least 8 characters with 1 uppercase, 1 lowercase, 1 number, and 1
+                            special character
+                        </span>
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group mt-2">
+                    <label class="form-label text-success fw-semibold">Confirm Password</label>
+                    <input type="password" (keyup)="confirmPassword()" class="form-control form-control-lg"
+                        formControlName="confirm_password" placeholder="Re-enter your password"
+                        [class.is-invalid]="(signupForm.get('confirm_password')?.errors && signupForm.get('confirm_password')?.touched) || (!sameAs && signupForm.get('confirm_password')?.dirty)"
+                        [class.is-valid]="!signupForm.get('confirm_password')?.errors && signupForm.get('confirm_password')?.touched && sameAs">
+                    @if (signupForm.get('confirm_password')?.errors && signupForm.get('confirm_password')?.dirty){
+                    <div class="invalid-feedback">
+                        <span *ngIf="signupForm.get('confirm_password')?.hasError('required')">Please confirm your
+                            password</span>
+                    </div>
+                    }
+                    @if (!sameAs && signupForm.get('confirm_password')?.dirty){
+                    <div class="invalid-feedback d-block">Passwords do not match</div>
+                    }
+                </div>
+
+                @if (showError) {
+                <div class="alert alert-danger mt-2 py-2" role="alert">
+                    {{ errorMessage }}
+                </div>
+                }
+
+                <div class="form-group mt-3">
+                    <button type="button" class="btn btn-success btn-lg w-100" (click)="register()"
+                        [disabled]="!signupForm.valid || !sameAs">
+                        <span class="fw-semibold">Create Account</span>
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <p class="text-muted mb-1 small">Want to offer your services?</p>
+                <a routerLink="/artisan-signup" class="text-success fw-semibold text-decoration-none small">Sign up as
+                    an Artisan →</a>
+            </div>
+
+            <hr class="my-3">
+
+            <div class="text-center">
+                <p class="text-muted mb-0 small">Already have an account?
+                    <a routerLink="/customer_signin" class="text-success fw-semibold text-decoration-none">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9 col-xl-7">
+            
+            <!-- Header -->
+            <div class="mb-5">
+                <h2 class="fw-light mb-2">Manage Subcategories</h2>
+                <p class="text-secondary small mb-0">Organize service types for artisan categories</p>
+            </div>
+
+            <!-- Main Content -->
+            <div class="content-card">
+                <span class="text-center text-danger">{{message}}</span>
+                
+                <!-- Category Selection -->
+                <div class="form-group mb-4">
+                    <label class="form-label small text-secondary mb-2">Main Category</label>
+                    <select class="form-select custom-select" [(ngModel)]="category_id">
+                        <option selected disabled>Select a category</option>
+                        @for (item of categories; track $index) {
+                            <option value={{item[0]}}>{{item[1]}}</option>
+                        }
+                    </select>
+                </div>
+
+                <!-- Subcategory Input -->
+                <div class="form-group mb-4">
+                    <label class="form-label small text-secondary mb-2">Add Subcategory</label>
+                    <input 
+                        type="text" 
+                        class="form-control custom-input" 
+                        placeholder="Type and press Enter" 
+                        (keyup.enter)="add($event)">
+                    <small class="form-text text-secondary mt-1 d-block">Press Enter to add multiple entries</small>
+                </div>
+
+                <!-- Subcategories List -->
+                <div class="form-group mb-4">
+                    <label class="form-label small text-secondary mb-2">Added Items</label>
+                    <div class="subcategory-box">
+
+                        @if (added_items.length > 0) {
+                            @for (item of added_items; track $index) {
+                                <span class="subcategory-tag">
+                                    {{item}}
+                                    <button class="tag-close" type="button" (click)="added_items.splice($index, 1)">×</button>
+                                </span>
+                            }
+
+                        }
+                        @else {
+                            <div class="empty-state">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                                </svg>
+                                <p class="mb-0 mt-2">No items added</p>
+                            </div>
+                        }
+                        
+                        <!-- Dynamic badges will go here -->
+                        <!-- 
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="subcategory-tag">
+                                Carpentry
+                                <button class="tag-close" type="button">×</button>
+                            </span>
+                        </div>
+                        -->
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="d-flex gap-2 justify-content-end">
+                    <button class="btn btn-outline-secondary btn-action" type="button">
+                        Clear
+                    </button>
+                    <button class="btn btn-dark btn-action" (click)="addSubCategories()">
+                        Save Changes
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

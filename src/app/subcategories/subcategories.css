@@ -1,0 +1,184 @@
+/* Modern Minimal Design - Subcategory Component */
+
+/* Base styles */
+body {
+    background-color: #fafafa;
+}
+
+/* Typography */
+h2 {
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+}
+
+/* Content Card */
+.content-card {
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 2rem;
+    transition: border-color 0.2s ease;
+}
+
+.content-card:hover {
+    border-color: #d0d0d0;
+}
+
+/* Form Elements */
+.form-label {
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+.custom-select,
+.custom-input {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    background-color: #ffffff;
+}
+
+.custom-select:focus,
+.custom-input:focus {
+    border-color: #1a1a1a;
+    box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.05);
+    outline: none;
+}
+
+.custom-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%231a1a1a' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/* Subcategory Box */
+.subcategory-box {
+    border: 1px dashed #d0d0d0;
+    border-radius: 8px;
+    padding: 2rem;
+    min-height: 140px;
+    background-color: #fafafa;
+    transition: border-color 0.2s ease;
+}
+
+.subcategory-box:hover {
+    border-color: #b0b0b0;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    color: #a0a0a0;
+}
+
+.empty-state svg {
+    color: #d0d0d0;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+    color: #909090;
+}
+
+/* Subcategory Tags */
+.subcategory-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.875rem;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.subcategory-tag:hover {
+    background-color: #ececec;
+    border-color: #d0d0d0;
+}
+
+.tag-close {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: #909090;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.tag-close:hover {
+    color: #1a1a1a;
+}
+
+/* Buttons */
+.btn-action {
+    padding: 0.625rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-width: 1px;
+}
+
+.btn-dark {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+.btn-dark:hover {
+    background-color: #000000;
+    border-color: #000000;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-outline-secondary {
+    border-color: #d0d0d0;
+    color: #666;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f5f5f5;
+    border-color: #b0b0b0;
+    color: #333;
+}
+
+/* Form Text */
+.form-text {
+    font-size: 0.825rem;
+    color: #909090;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .content-card {
+        padding: 1.5rem;
+    }
+
+    .subcategory-box {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Smooth transitions */
+* {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Remove excessive animations */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
