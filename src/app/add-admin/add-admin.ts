@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-admin',
+  standalone: true,
   imports: [FormsModule, CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './add-admin.html',
   styleUrl: './add-admin.css'
@@ -19,56 +20,88 @@ export class AddAdmin {
   errorMessage: string = '';
   showError: boolean = false;
 
-  signupForm = this.builder.group({
+  signupForm: FormGroup = this.builder.group({
     first_name: ['', [Validators.required, Validators.minLength(2)]],
     last_name: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required,
-    Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
-    ]],
+    password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
     confirm_password: ['', [Validators.required]],
-  })
+  });
 
-  register() {
-    // console.log(this.signupForm.valid);
-    //this.users.push(this.signupForm.value);
-    //localStorage.setItem('users', JSON.stringify(this.users))
-    //send to Database
-    this.showError = false;
-    this.errorMessage = '';
+  showPassword = false;
+  showConfirmPassword = false;
+  loading = false;
+  message?: string;
+  messageType?: 'success' | 'danger' | 'warning' | 'info';
+  messageTitle?: string;
 
-    this.users.push(this.signupForm.value)
-    // this.users.find(user=>{user.email === this.signUpForm.value.email})
-    // localStorage['users'] = JSON.stringify(this.users);
+  register(): void {
+    if (this.signupForm.invalid || !this.sameAs) {
+      this.signupForm.markAllAsTouched();
+      return;
+    }
+    this.loading = true;
     this.http.post('http://localhost/SkillBridge/adminAuth/signup', this.signupForm.value)
       .subscribe({
         next: (response: any) => {
-          console.log(response)
+          this.loading = false;
           if (response.status === 200) {
-            console.log('I will go to Sign in');
-            this.router.navigate(['/admin_signin'])
+            this.messageType = 'success';
+            this.messageTitle = 'Admin Created';
+            this.message = 'Redirecting to sign in...';
+            setTimeout(() => this.router.navigate(['/admin-signin']), 1000);
           } else {
-            this.errorMessage = response.message || 'Registration failed. Please try again.';
-            this.showError = true;
+            this.messageType = 'danger';
+            this.messageTitle = 'Registration Failed';
+            this.message = response.message || 'Please try again.';
           }
         },
         error: (error) => {
-          this.errorMessage = 'An error occurred. Please check your connection and try again.';
-          this.showError = true;
+          this.loading = false;
+          this.messageType = 'danger';
+          this.messageTitle = 'Network Error';
+          this.message = 'Unable to connect to server.';
           console.error('Error:', error);
-
         }
-      })
-
+      });
   }
 
 
-  confirmPassword() {
-    // console.log(this.signupForm.value.password);
-    if (this.signupForm.value.confirm_password === this.signupForm.value.password) {
-      this.sameAs = true
-    }
+  confirmPassword(): void {
+    this.sameAs = this.signupForm.value.confirm_password === this.signupForm.value.password;
+  }
 
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  hasError(controlName: string): boolean {
+    const control = this.signupForm.get(controlName);
+    return !!(control && control.errors && control.touched);
+  }
+
+  isValid(controlName: string): boolean {
+    const control = this.signupForm.get(controlName);
+    return !!(control && control.touched && !control.errors);
+  }
+
+  hasConfirmPasswordError(): boolean {
+    const control = this.signupForm.get('confirm_password');
+    return !!(control && control.touched && (control.errors || !this.sameAs));
+  }
+
+  isConfirmPasswordValid(): boolean {
+    const control = this.signupForm.get('confirm_password');
+    return !!(control && control.touched && !control.errors && this.sameAs);
+  }
+
+  closeMessage(): void {
+    this.message = undefined;
+    this.messageType = undefined;
+    this.messageTitle = undefined;
   }
 }

@@ -2,16 +2,21 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-subcategories',
-  imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './subcategories.html',
   styleUrl: './subcategories.css'
 })
 export class Subcategories implements OnInit {
   private _http = inject(HttpClient);
   categories: any;
+  isSidebarCollapsed = false;
+
+  toggleSidebar() { this.isSidebarCollapsed = !this.isSidebarCollapsed; }
 
   ngOnInit(): void {
     this._http.get('http://localhost/SkillBridge/categories').subscribe((response: any) => {

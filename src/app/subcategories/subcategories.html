@@ -1,86 +1,161 @@
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-12 col-lg-9 col-xl-7">
-            
-            <!-- Header -->
-            <div class="mb-5">
-                <h2 class="fw-light mb-2">Manage Subcategories</h2>
-                <p class="text-secondary small mb-0">Organize service types for artisan categories</p>
-            </div>
-
-            <!-- Main Content -->
-            <div class="content-card">
-                <span class="text-center text-danger">{{message}}</span>
-                
-                <!-- Category Selection -->
-                <div class="form-group mb-4">
-                    <label class="form-label small text-secondary mb-2">Main Category</label>
-                    <select class="form-select custom-select" [(ngModel)]="category_id">
-                        <option selected disabled>Select a category</option>
-                        @for (item of categories; track $index) {
-                            <option value={{item[0]}}>{{item[1]}}</option>
-                        }
-                    </select>
+<!-- Animated Background -->
+<div class="signup-background">
+    <div class="gradient-bg"></div>
+    <div class="animated-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+    </div>
+    <div class="dashboard-wrapper">
+            <aside class="sidebar" [class.collapsed]="isSidebarCollapsed" [attr.aria-expanded]="!isSidebarCollapsed">
+                <div class="sidebar-header">
+                    <div class="brand">
+                        <i class="fas fa-shield-alt"></i>
+                        <span class="brand-text">Admin Panel</span>
+                    </div>
+                    <button class="toggle-btn" (click)="toggleSidebar()" [attr.aria-label]="isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'">
+                                            @if (isSidebarCollapsed) { <i class="fas fa-chevron-right"></i> } @else { <i class="fas fa-chevron-left"></i> }
+                                        </button>
                 </div>
-
-                <!-- Subcategory Input -->
-                <div class="form-group mb-4">
-                    <label class="form-label small text-secondary mb-2">Add Subcategory</label>
-                    <input 
-                        type="text" 
-                        class="form-control custom-input" 
-                        placeholder="Type and press Enter" 
-                        (keyup.enter)="add($event)">
-                    <small class="form-text text-secondary mt-1 d-block">Press Enter to add multiple entries</small>
+                <nav class="sidebar-nav">
+                    <a class="nav-link" routerLink="/admin" >
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a class="nav-link" routerLink="/admin/categories" routerLinkActive="active">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Categories</span>
+                    </a>
+                    <a class="nav-link active" routerLink="/admin/subcategories" routerLinkActive="active">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Subcategories</span>
+                    </a>
+                    <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                    <a class="nav-link" routerLink="/admin/services" routerLinkActive="active">
+                        <i class="fas fa-concierge-bell"></i>
+                        <span>Services</span>
+                    </a>
+                    <a class="nav-link" routerLink="/admin/settings" routerLinkActive="active">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
                 </div>
-
-                <!-- Subcategories List -->
-                <div class="form-group mb-4">
-                    <label class="form-label small text-secondary mb-2">Added Items</label>
-                    <div class="subcategory-box">
-
-                        @if (added_items.length > 0) {
-                            @for (item of added_items; track $index) {
-                                <span class="subcategory-tag">
-                                    {{item}}
-                                    <button class="tag-close" type="button" (click)="added_items.splice($index, 1)">×</button>
-                                </span>
-                            }
-
-                        }
-                        @else {
-                            <div class="empty-state">
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
-                                </svg>
-                                <p class="mb-0 mt-2">No items added</p>
+            </aside>
+            <main class="main-content">
+                <div class="subcategories-page">
+                    <div class="subcategories-container">
+                        <div class="page-header fade-in-up white-panel">
+                            <div class="header-icon bounce">
+                                <i class="fas fa-layer-group"></i>
                             </div>
-                        }
-                        
-                        <!-- Dynamic badges will go here -->
-                        <!-- 
-                        <div class="d-flex flex-wrap gap-2">
-                            <span class="subcategory-tag">
-                                Carpentry
-                                <button class="tag-close" type="button">×</button>
-                            </span>
+                            <div class="header-text">
+                                <h1 class="gradient-text">Subcategories</h1>
+                                <p class="subtitle">Manage and organize nested service groupings</p>
+                            </div>
                         </div>
-                        -->
+                        <div class="content-panel fade-in-up">
+                            <div class="card-header">
+                                <h2 class="section-title">Existing Subcategories</h2>
+                                <div class="actions">
+                                    <button class="btn-clear">
+                                        <i class="fas fa-sync-alt"></i>
+                                        Refresh
+                                    </button>
+                                    <button class="btn-gradient">
+                                        <i class="fas fa-plus-circle"></i>
+                                        New Subcategory
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chips">
+                                <div class="chip glow">
+                                    <i class="fas fa-tag"></i>
+                                    Plumbing Essentials
+                                </div>
+                                <div class="chip glow">
+                                    <i class="fas fa-tag"></i>
+                                    Creative Design Assets
+                                </div>
+                                <div class="chip glow">
+                                    <i class="fas fa-tag"></i>
+                                    Electrical Advanced
+                                </div>
+                                <div class="chip glow">
+                                    <i class="fas fa-tag"></i>
+                                    Outdoor Living
+                                </div>
+                                <div class="chip glow">
+                                    <i class="fas fa-tag"></i>
+                                    UX Enhancements
+                                </div>
+                                <div class="chip glow">
+                                    <i class="fas fa-tag"></i>
+                                    Safety & Compliance
+                                </div>
+                                <div class="chip glow">
+                                    <i class="fas fa-tag"></i>
+                                    Premium Materials
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-panel fade-in-up">
+                            <h2 class="section-title">Add Subcategory</h2>
+                            <form novalidate>
+                                <div class="form-row">
+                                    <div class="input-wrapper">
+                                        <label for="parentCat">Parent Category</label>
+                                        <div class="input-icon">
+                                            <i class="fas fa-sitemap"></i>
+                                        </div>
+                                        <select id="parentCat" [(ngModel)]="category_id" name="parentCat">
+                                            <option selected disabled>Select a category</option>
+                                            @for (item of categories; track $index) {
+                                                <option value="{{item[0]}}">{{item[1]}}</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="input-wrapper">
+                                        <label for="subcatName">Subcategory Name</label>
+                                        <div class="input-icon">
+                                            <i class="fas fa-heading"></i>
+                                        </div>
+                                        <input id="subcatName" type="text" placeholder="e.g., Plumbing Basics" (change)="add($event)" name="subcatName">
+                                    </div>
+                                </div>
+                                <div class="chips" *ngIf="added_items?.length">
+                                    @for (tag of added_items; track $index) {
+                                        <div class="chip glow">
+                                            <i class="fas fa-tag"></i>
+                                            {{tag}}
+                                        </div>
+                                    }
+                                </div>
+                                <div class="actions">
+                                    <button type="reset" class="btn-clear">
+                                        <i class="fas fa-times"></i>
+                                        Clear
+                                    </button>
+                                    <button type="button" class="btn-gradient" (click)="addSubCategories()">
+                                        <i class="fas fa-save"></i>
+                                        Save Subcategories
+                                    </button>
+                                </div>
+                                <p class="form-hint" *ngIf="message">{{message}}</p>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Actions -->
-                <div class="d-flex gap-2 justify-content-end">
-                    <button class="btn btn-outline-secondary btn-action" type="button">
-                        Clear
-                    </button>
-                    <button class="btn btn-dark btn-action" (click)="addSubCategories()">
-                        Save Changes
-                    </button>
-                </div>
-
-            </div>
-
+            </main>
         </div>
     </div>
-</div>

@@ -1,79 +1,204 @@
-<div>
-    <div class="form-group mb-2">
-        <label for="">Service Title</label>
-        <input type="text" class="form-control">
-    </div>
-    <div class="form-group mb-2">
-        <label for="">Description</label>
-        <input type="text" name="" id="" class="form-control">
-    </div>
-    <div class="form-group mb-2">
-        <label for="">Category</label>
-        <select name="" id="" class="form-select custom-select" [(ngModel)]="category_id" (change)="getid()">
-            <option selected disabled>Select a category</option>
-            @for (item of categories; track $index) {
-            <option value="{{item[0]}}">{{item[1]}} </option>
-            }
-        </select>
-    </div>
-
-    <div class="form-group mb-2">
-        <label for="">Sub Category</label>
-        @for (item of subcategories; track $index) {
-        <div>
-            <input type="checkbox" name="" id="" value="{{item[1]}}" (change)="select($event)">
-            <label for="">{{item[1]}}</label>
-        </div>
-
-        <!-- <option value="{{item[0]}}">{{item[1]}}</option> -->
-        }
-    </div>
-
-    <div class="form-group mb-2">
-        <label for="">Mode of Service</label>
-        <div class="d-flex gap-1">
-            <div>
-                <input type="radio" name="" id="">
-                <label for="">Onsite</label>
-            </div>
-            <div>
-                <input type="radio" name="" id="">
-                <label for="">Virtual</label>
-            </div>
-            <div>
-                <input type="radio" name="" id="">
-                <label for="">Hybrid</label>
-            </div>
+<div class="services-page">
+    <!-- Animated Background -->
+    <div class="signup-background">
+        <div class="gradient-bg"></div>
+        <div class="animated-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
         </div>
     </div>
-    <div class="form-group mb-2">
-        <label for="">Base Price</label>
-        <input type="number" class="form-control">
-    </div>
-    <div class="form-group mb-2">
-        <label for="">Currency</label>
-        <select name="currency" id="">
-            <option value=""># Naira</option>
-            <option value="">$ US Dollar</option>
-            <option value="">Cedi</option>
-            <option value="">Australian Dollar</option>
-            <option value="">Angolan Kwanza</option>
-            <option value="">Brunein Dollar</option>
-            <option value="">Euro</option>
-            <option value="">Albanian Lek</option>
-            <option value="">Argentine Peso</option>
-            <option value="">Aurban Florin</option>
-            <option value="">Azebaijani Manat</option>
-            <option value="">Buhraini Dinar</option>
-        </select>
-    </div>
-    <div class="form-group mb-2">
-        <label for="">Average Duration</label>
-        <input type="text" class="form-control">
-    </div>
-    <div class="form-group mb-2">
-        <label for="">Keywords</label>
-        <input type="text" class="form-control">
-    </div>
 
-</div>
+    <div class="dashboard-wrapper services-dashboard">
+        <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z" />
+                    </svg>
+                    <span class="brand-text">SkillBridge</span>
+                </div>
+                <button class="toggle-btn" (click)="toggleSidebar()">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" routerLink="/artisan" class="nav-link active">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" routerLink="/artisan/services" class="nav-link">
+                    <i class="bi bi-briefcase"></i>
+                    <span>Services</span>
+                    <span class="badge">4</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="bi bi-chat-left-text"></i>
+                    <span>Messages</span>
+                    <span class="badge">7</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="bi bi-star"></i>
+                    <span>Reviews</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="bi bi-wallet2"></i>
+                    <span>Earnings</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="bi bi-calendar-check"></i>
+                    <span>Schedule</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="bi bi-gear"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content" role="main">
+            <div class="services-content fade-in-up">
+                <header class="page-header">
+                    <div class="page-icon"><i class="bi bi-briefcase"></i></div>
+                    <div class="page-titles">
+                        <h1 class="page-title gradient-text">Services</h1>
+                        <p class="page-subtitle">Define offerings and categorize them</p>
+                    </div>
+                </header>
+
+                <form class="service-form" novalidate>
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label class="form-label"><i class="bi bi-type"></i> Service Title</label>
+                        <div class="input-wrapper">
+                            <input type="text" class="form-control" placeholder="e.g. Plumbing Installation">
+                            <span class="input-icon"><i class="bi bi-type"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label class="form-label"><i class="bi bi-pencil-square"></i> Description</label>
+                        <div class="input-wrapper textarea-wrapper">
+                            <textarea class="form-control textarea" rows="3"
+                                placeholder="Brief description of the service"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="form-group">
+                        <label class="form-label"><i class="bi bi-list-check"></i> Category</label>
+                        <div class="input-wrapper">
+                            <select class="form-select form-control" [(ngModel)]="category_id" (change)="getid()">
+                                <option selected disabled>Select a category</option>
+                                @for (item of categories; track $index) {
+                                <option value="{{item[0]}}">{{item[1]}}</option>
+                                }
+                            </select>
+                            <span class="input-icon"><i class="bi bi-collection"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Sub Categories -->
+                    <div class="form-group">
+                        <label class="form-label"><i class="bi bi-diagram-3"></i> Sub Categories</label>
+                        <div class="subcat-box glass-lite">
+                            @for (item of subcategories; track $index) {
+                            <label class="check-item">
+                                <input type="checkbox" value="{{item[1]}}" (change)="select($event)">
+                                <span class="check-label">{{item[1]}}</span>
+                            </label>
+                            }
+                            @empty { <p class="empty-text">Select a category to see sub-categories</p> }
+                        </div>
+                    </div>
+
+                    <!-- Mode of Service -->
+                    <div class="form-group">
+                        <label class="form-label"><i class="bi bi-broadcast-pin"></i> Mode of Service</label>
+                        <div class="mode-row">
+                            <label class="mode-option">
+                                <input type="radio" name="mode">
+                                <span>Onsite</span>
+                            </label>
+                            <label class="mode-option">
+                                <input type="radio" name="mode">
+                                <span>Virtual</span>
+                            </label>
+                            <label class="mode-option">
+                                <input type="radio" name="mode">
+                                <span>Hybrid</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Pricing -->
+                    <div class="row g-3">
+                        <div class="col-md-6 form-group">
+                            <label class="form-label"><i class="bi bi-cash-coin"></i> Base Price</label>
+                            <div class="input-wrapper">
+                                <input type="number" class="form-control" placeholder="0.00">
+                                <span class="input-icon"><i class="bi bi-cash-coin"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-label"><i class="bi bi-currency-exchange"></i> Currency</label>
+                            <div class="input-wrapper">
+                                <select class="form-select form-control">
+                                    <option># Naira</option>
+                                    <option>$ US Dollar</option>
+                                    <option>Cedi</option>
+                                    <option>Euro</option>
+                                </select>
+                                <span class="input-icon"><i class="bi bi-currency-exchange"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Duration -->
+                    <div class="form-group">
+                        <label class="form-label"><i class="bi bi-clock-history"></i> Average Duration</label>
+                        <div class="input-wrapper">
+                            <input type="text" class="form-control" placeholder="e.g. 2 hours">
+                            <span class="input-icon"><i class="bi bi-clock-history"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Keywords -->
+                    <div class="form-group">
+                        <label class="form-label"><i class="bi bi-hash"></i> Keywords</label>
+                        <div class="input-wrapper">
+                            <input type="text" class="form-control" placeholder="Comma-separated keywords">
+                            <span class="input-icon"><i class="bi bi-hash"></i></span>
+                        </div>
+                        <small class="form-hint"><i class="bi bi-info-circle me-1"></i>Helps users find your service
+                            faster</small>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="action-row">
+                        <button type="button" class="btn-clear">Reset</button>
+                        <button type="button" class="btn-submit-gradient"><i class="bi bi-save2 me-1"></i>Save
+                            Service</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

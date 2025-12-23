@@ -62,7 +62,7 @@ export class AdminSignin {
             this.messageType = 'success';
             this.messageTitle = 'Login Successful';
             this.message = 'Redirecting to dashboard...';
-            setTimeout(() => this.router.navigate(['/admin-dashboard']), 800);
+            setTimeout(() => this.router.navigate(['/admin']), 800);
           } else {
             this.messageType = 'danger';
             this.messageTitle = 'Login Failed';

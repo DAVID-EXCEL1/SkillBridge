@@ -15,7 +15,6 @@ import { AdminSignin } from './admin-signin/admin-signin';
 import { artisanAuthGuardGuard } from './artisan-auth-guard-guard';
 import { adminauthguardGuard } from './adminauthguard-guard';
 import { AddAdmin } from './add-admin/add-admin';
-import { AdminSignup } from './admin-signup/admin-signup';
 export const routes: Routes = [
     {
         path: 'signup',
@@ -38,7 +37,11 @@ export const routes: Routes = [
         path: 'admin', canActivate: [adminauthguardGuard],
         children: [
             { path: '', component: Admin },
-            { path: 'add-admin', component: AddAdmin }
+            { path: 'add-admin', component: AddAdmin },
+            {
+                path: 'subcategories',
+                component: Subcategories
+            },
         ]
     },
     {
@@ -60,16 +63,9 @@ export const routes: Routes = [
         path: 'sub-category',
         component: SubCategory
     },
-    {
-        path: 'subcategories',
-        component: Subcategories
-    },
+
     {
         path: 'admin-signin',
         component: AdminSignin
     },
-    {
-        path: 'admin-signup',
-        component: AdminSignup
-    }
 ];

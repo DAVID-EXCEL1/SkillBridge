@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -17,7 +17,7 @@ interface JwtPayload {
 
 @Component({
   selector: 'app-artisan',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './artisan.html',
   styleUrl: './artisan.css'
 })
