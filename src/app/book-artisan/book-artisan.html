@@ -1,0 +1,54 @@
+<div class="app-shell">
+  <app-sidebar></app-sidebar>
+  <div class="app-shell-content" style="max-width: 640px;">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 class="h3 mb-0"><i class="bi bi-calendar-plus me-2"></i>Book Artisan</h1>
+      <a routerLink="/find-artisans" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left me-1"></i>Back
+      </a>
+    </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label">What do you need done?</label>
+        <textarea class="form-control" rows="3" [(ngModel)]="order_description"
+          placeholder="e.g. Fix a leaking kitchen pipe"></textarea>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-6">
+          <label class="form-label">Budget (optional)</label>
+          <input type="number" class="form-control" [(ngModel)]="price" placeholder="0.00">
+        </div>
+        <div class="col-6">
+          <label class="form-label">Currency</label>
+          <select class="form-select" [(ngModel)]="currency">
+            <option value="NGN">NGN</option>
+            <option value="USD">USD</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Preferred date/time (optional)</label>
+        <input type="datetime-local" class="form-control" [(ngModel)]="scheduled_for">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Notes (optional)</label>
+        <textarea class="form-control" rows="2" [(ngModel)]="notes"
+          placeholder="Anything else the artisan should know"></textarea>
+      </div>
+
+      @if (message) {
+        <div class="alert alert-warning py-2">{{ message }}</div>
+      }
+
+      <button class="btn btn-success w-100" [disabled]="submitting" (click)="submit()">
+        <i class="bi bi-send me-1"></i>{{ submitting ? 'Sending...' : 'Send Booking Request' }}
+      </button>
+    </div>
+  </div>
+  </div>
+</div>

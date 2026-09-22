@@ -1,0 +1,82 @@
+<div class="app-shell">
+  <app-sidebar></app-sidebar>
+  <div class="app-shell-content">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 class="h3 mb-0"><i class="bi bi-person-lines-fill me-2"></i>Find Artisans</h1>
+    </div>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body d-flex flex-wrap gap-2 align-items-end">
+      <div class="flex-grow-1">
+        <label class="form-label mb-1">Category</label>
+        <select class="form-select" [(ngModel)]="category_id">
+          <option [ngValue]="0" disabled>Select a category</option>
+          @for (c of categories; track c.category_id) {
+            <option [ngValue]="c.category_id">{{ c.category_name }}</option>
+          }
+        </select>
+      </div>
+      <button class="btn btn-primary" [disabled]="!category_id || loading" (click)="browse()">
+        <i class="bi bi-search me-1"></i>{{ loading ? 'Searching...' : 'Browse' }}
+      </button>
+    </div>
+  </div>
+
+  @if (searched && !loading && artisans.length === 0) {
+    <div class="alert alert-info">No artisans have listed this category yet. Try another one.</div>
+  }
+
+  <div class="row g-3">
+    @for (a of artisans; track a.artisan_id) {
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title mb-1">{{ a.first_name }} {{ a.last_name }}</h5>
+            <p class="text-muted small mb-2">
+              <i class="bi bi-geo-alt me-1"></i>{{ a.city || 'Location not set' }}{{ a.state ? ', ' + a.state : '' }}
+            </p>
+            @if (a.about_bio) {
+              <p class="small mb-2">{{ a.about_bio }}</p>
+            }
+
+            <button class="btn btn-link btn-sm p-0 mb-2 text-start" (click)="toggleReviews(a.artisan_id)">
+              <i class="bi bi-star-fill text-warning me-1"></i>
+              @if (reviewsByArtisan[a.artisan_id]?.average_rating) {
+                {{ reviewsByArtisan[a.artisan_id].average_rating }} ({{ reviewsByArtisan[a.artisan_id].total_reviews }} reviews)
+              } @else {
+                View reviews
+              }
+            </button>
+
+            @if (reviewsByArtisan[a.artisan_id]?.open) {
+              <div class="border rounded p-2 mb-2 small bg-light" style="max-height: 140px; overflow-y: auto;">
+                @for (r of reviewsByArtisan[a.artisan_id].reviews; track r.review_id) {
+                  <div class="mb-2">
+                    <strong>{{ r.customer_first_name }}</strong> — {{ r.rating }}/5
+                    <div class="text-muted">{{ r.comment }}</div>
+                  </div>
+                } @empty {
+                  <span class="text-muted">No reviews yet.</span>
+                }
+              </div>
+            }
+
+            <div class="mt-auto d-flex gap-2">
+              <button class="btn" [ngClass]="favoriteIds.has(a.artisan_id) ? 'btn-danger' : 'btn-outline-danger'"
+                (click)="toggleFavorite(a.artisan_id)">
+                <i class="bi" [ngClass]="favoriteIds.has(a.artisan_id) ? 'bi-heart-fill' : 'bi-heart'"></i>
+              </button>
+              <a class="btn btn-outline-primary" [routerLink]="['/messages']" [queryParams]="{ with: a.artisan_id }">
+                <i class="bi bi-chat-dots"></i>
+              </a>
+              <button class="btn btn-success flex-grow-1" (click)="book(a.artisan_id)">
+                <i class="bi bi-calendar-plus me-1"></i>Book this artisan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  </div>
+</div>

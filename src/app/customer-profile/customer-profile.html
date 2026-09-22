@@ -1,0 +1,82 @@
+<div class="app-shell">
+  <app-sidebar></app-sidebar>
+  <div class="app-shell-content" style="max-width: 640px;">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 class="h3 mb-0"><i class="bi bi-person-circle me-2"></i>My Profile</h1>
+    </div>
+
+  @if (loading) {
+    <p class="text-muted">Loading profile...</p>
+  } @else {
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="row g-3 mb-2">
+          <div class="col-6">
+            <label class="form-label">First Name</label>
+            <input class="form-control" [(ngModel)]="profile.first_name">
+          </div>
+          <div class="col-6">
+            <label class="form-label">Last Name</label>
+            <input class="form-control" [(ngModel)]="profile.last_name">
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Email</label>
+          <input class="form-control" [value]="profile.email" disabled>
+          <div class="form-text">Email can't be changed here yet.</div>
+        </div>
+
+        <div class="row g-3 mb-2">
+          <div class="col-6">
+            <label class="form-label">Phone Number</label>
+            <input class="form-control" [(ngModel)]="profile.phone_number">
+          </div>
+          <div class="col-6">
+            <label class="form-label">WhatsApp Number</label>
+            <input class="form-control" [(ngModel)]="profile.whatsapp_number">
+          </div>
+        </div>
+
+        <div class="row g-3 mb-2">
+          <div class="col-6">
+            <label class="form-label">Gender</label>
+            <select class="form-select" [(ngModel)]="profile.gender">
+              <option [ngValue]="null">Prefer not to say</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" [(ngModel)]="profile.DOB">
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-4">
+            <label class="form-label">City</label>
+            <input class="form-control" [(ngModel)]="profile.city">
+          </div>
+          <div class="col-4">
+            <label class="form-label">State</label>
+            <input class="form-control" [(ngModel)]="profile.state">
+          </div>
+          <div class="col-4">
+            <label class="form-label">Country</label>
+            <input class="form-control" [(ngModel)]="profile.country">
+          </div>
+        </div>
+
+        @if (message) {
+          <div class="alert alert-info py-2">{{ message }}</div>
+        }
+
+        <button class="btn btn-primary w-100" [disabled]="saving" (click)="save()">
+          {{ saving ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+    </div>
+  }
+  </div>
+</div>

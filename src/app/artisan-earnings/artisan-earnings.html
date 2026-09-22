@@ -1,0 +1,44 @@
+<div class="app-shell">
+  <app-sidebar></app-sidebar>
+  <div class="app-shell-content">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 class="h3 mb-0"><i class="bi bi-wallet2 me-2"></i>Earnings</h1>
+    </div>
+
+  @if (!loading) {
+    <div class="alert alert-light border mb-3">
+      <strong>Total received: ₦{{ total.toLocaleString() }}</strong>
+      <p class="text-muted small mb-0">Payouts/withdrawals aren't set up yet — this reflects payments customers have recorded against your completed jobs.</p>
+    </div>
+  }
+
+  @if (loading) {
+    <p class="text-muted">Loading earnings...</p>
+  } @else if (payments.length === 0) {
+    <div class="alert alert-light border">No payments recorded yet.</div>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Amount</th>
+            <th>Method</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (p of payments; track p.payment_id) {
+            <tr>
+              <td>#{{ p.order_id }}</td>
+              <td>{{ p.currency }} {{ p.amount }}</td>
+              <td>{{ p.method }}</td>
+              <td>{{ p.created_on | date:'mediumDate' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  </div>
+</div>

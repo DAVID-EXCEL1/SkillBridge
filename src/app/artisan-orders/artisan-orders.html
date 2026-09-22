@@ -1,0 +1,58 @@
+<div class="app-shell">
+  <app-sidebar></app-sidebar>
+  <div class="app-shell-content">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 class="h3 mb-0"><i class="bi bi-inbox me-2"></i>Job Requests</h1>
+    </div>
+
+  @if (actionMessage) {
+    <div class="alert alert-info py-2">{{ actionMessage }}</div>
+  }
+
+  @if (loading) {
+    <p class="text-muted">Loading job requests...</p>
+  } @else if (orders.length === 0) {
+    <div class="alert alert-light border">No job requests yet.</div>
+  }
+
+  <div class="d-flex flex-column gap-3">
+    @for (o of orders; track o.order_id) {
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h5 class="mb-1">{{ o.order_description }}</h5>
+              <p class="text-muted small mb-1">
+                From <strong>{{ o.customer_first_name }} {{ o.customer_last_name }}</strong>
+                @if (o.price) { • {{ o.currency }} {{ o.price }} }
+              </p>
+              @if (o.notes) { <p class="small text-muted mb-1">Note: {{ o.notes }}</p> }
+              @if (o.scheduled_for) { <p class="small text-muted mb-1"><i class="bi bi-clock me-1"></i>{{ o.scheduled_for }}</p> }
+            </div>
+            <span class="badge rounded-pill" [ngClass]="statusBadgeClass(o.status)">{{ o.status }}</span>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <a class="btn btn-outline-primary btn-sm" [routerLink]="['/messages']" [queryParams]="{ with: o.customer_id }">
+              <i class="bi bi-chat-dots me-1"></i>Message
+            </a>
+            @if (o.status === 'pending') {
+              <button class="btn btn-success btn-sm" (click)="respond(o.order_id, 'accepted')">
+                <i class="bi bi-check-circle me-1"></i>Accept
+              </button>
+              <button class="btn btn-outline-danger btn-sm" (click)="respond(o.order_id, 'declined')">
+                <i class="bi bi-x-circle me-1"></i>Decline
+              </button>
+            }
+            @if (o.status === 'accepted') {
+              <button class="btn btn-primary btn-sm" (click)="respond(o.order_id, 'completed')">
+                <i class="bi bi-flag me-1"></i>Mark Completed
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="app-shell">
+  <app-sidebar></app-sidebar>
+  <div class="app-shell-content">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 class="h3 mb-0"><i class="bi bi-people-fill me-2"></i>Customers</h1>
+    </div>
+
+  @if (message) {
+    <div class="alert alert-info py-2">{{ message }}</div>
+  }
+
+  @if (loading) {
+    <p class="text-muted">Loading customers...</p>
+  } @else if (customers.length === 0) {
+    <div class="alert alert-light border">No customers have signed up yet.</div>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Location</th>
+            <th>Orders</th>
+            <th>Joined</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (c of customers; track c.customer_id) {
+            <tr>
+              <td>{{ c.first_name }} {{ c.last_name }}</td>
+              <td>{{ c.email }}</td>
+              <td>{{ c.city || '—' }}{{ c.state ? ', ' + c.state : '' }}</td>
+              <td>{{ c.total_orders }}</td>
+              <td>{{ c.created_on | date:'mediumDate' }}</td>
+              <td>
+                <span class="badge" [ngClass]="c.status === 'suspended' ? 'bg-danger' : 'bg-success'">
+                  {{ c.status }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm" [ngClass]="c.status === 'suspended' ? 'btn-outline-success' : 'btn-outline-danger'"
+                  (click)="toggleStatus(c.customer_id)">
+                  {{ c.status === 'suspended' ? 'Reactivate' : 'Suspend' }}
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  </div>
+</div>

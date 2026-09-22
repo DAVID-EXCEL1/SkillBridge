@@ -19,33 +19,35 @@
         </div>
 
         <nav class="sidebar-nav">
-            <a href="#" class="nav-link active">
+            <a routerLink="/dashboard" class="nav-link active">
                 <i class="bi bi-speedometer2"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="#" class="nav-link">
+            <a routerLink="/find-artisans" class="nav-link">
                 <i class="bi bi-person-lines-fill"></i>
                 <span>Find Artisans</span>
             </a>
-            <a href="#" class="nav-link">
+            <a routerLink="/my-orders" class="nav-link">
                 <i class="bi bi-briefcase"></i>
                 <span>My Projects</span>
             </a>
-            <a href="#" class="nav-link">
+            <a routerLink="/messages" class="nav-link">
                 <i class="bi bi-chat-left-text"></i>
                 <span>Messages</span>
-                <span class="badge">3</span>
             </a>
-            <a href="#" class="nav-link">
+            <a routerLink="/notifications" class="nav-link">
                 <i class="bi bi-bell"></i>
                 <span>Notifications</span>
-                <span class="badge">5</span>
             </a>
-            <a href="#" class="nav-link">
+            <a routerLink="/favorites" class="nav-link">
                 <i class="bi bi-heart"></i>
                 <span>Favorites</span>
             </a>
-            <a href="#" class="nav-link">
+            <a routerLink="/profile" class="nav-link">
+                <i class="bi bi-person-circle"></i>
+                <span>Profile</span>
+            </a>
+            <a routerLink="/settings" class="nav-link">
                 <i class="bi bi-gear"></i>
                 <span>Settings</span>
             </a>
@@ -114,10 +116,7 @@
                     </div>
                     <div class="stat-info">
                         <span class="stat-label">Total Projects</span>
-                        <h3 class="stat-value">{{dashboardStats.totalProjects || 12}}</h3>
-                        <span class="stat-change positive">
-                            <i class="bi bi-arrow-up"></i> 12% from last month
-                        </span>
+                        <h3 class="stat-value">{{dashboardStats.totalProjects}}</h3>
                     </div>
                 </div>
 
@@ -127,10 +126,7 @@
                     </div>
                     <div class="stat-info">
                         <span class="stat-label">Ongoing Projects</span>
-                        <h3 class="stat-value">{{dashboardStats.ongoingProjects || 4}}</h3>
-                        <span class="stat-change positive">
-                            <i class="bi bi-arrow-up"></i> 2 new this week
-                        </span>
+                        <h3 class="stat-value">{{dashboardStats.ongoingProjects}}</h3>
                     </div>
                 </div>
 
@@ -140,10 +136,7 @@
                     </div>
                     <div class="stat-info">
                         <span class="stat-label">Completed</span>
-                        <h3 class="stat-value">{{dashboardStats.completedProjects || 8}}</h3>
-                        <span class="stat-change neutral">
-                            <i class="bi bi-dash"></i> No change
-                        </span>
+                        <h3 class="stat-value">{{dashboardStats.completedProjects}}</h3>
                     </div>
                 </div>
 
@@ -153,10 +146,7 @@
                     </div>
                     <div class="stat-info">
                         <span class="stat-label">Total Spent</span>
-                        <h3 class="stat-value">₦{{dashboardStats.totalSpent || '560,000'}}</h3>
-                        <span class="stat-change negative">
-                            <i class="bi bi-arrow-down"></i> 5% from last month
-                        </span>
+                        <h3 class="stat-value">₦{{dashboardStats.totalSpent}}</h3>
                     </div>
                 </div>
             </div>
@@ -167,53 +157,28 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Recent Projects</h3>
-                        <a href="#" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
+                        <a routerLink="/my-orders" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
                     </div>
                     <div class="card-body">
                         <div class="project-list">
+                            @for (o of recentOrders; track o.order_id) {
                             <div class="project-item">
                                 <div class="project-info">
-                                    <img src="https://ui-avatars.com/api/?name=Web+Dev&background=6366f1&color=fff" alt="Project">
+                                    <img src="https://ui-avatars.com/api/?name={{o.artisan_first_name}}+{{o.artisan_last_name}}&background=6366f1&color=fff" alt="Project">
                                     <div>
-                                        <h4>Website Development</h4>
-                                        <p><i class="bi bi-person"></i> John Doe (Developer)</p>
+                                        <h4>{{o.order_description}}</h4>
+                                        <p><i class="bi bi-person"></i> {{o.artisan_first_name}} {{o.artisan_last_name}}</p>
                                     </div>
                                 </div>
-                                <span class="status-badge in-progress">In Progress</span>
+                                <span class="status-badge" [ngClass]="{
+                                    'in-progress': o.status === 'accepted',
+                                    'completed': o.status === 'completed',
+                                    'pending': o.status === 'pending'
+                                }">{{o.status}}</span>
                             </div>
-
-                            <div class="project-item">
-                                <div class="project-info">
-                                    <img src="https://ui-avatars.com/api/?name=Logo+Design&background=8b5cf6&color=fff" alt="Project">
-                                    <div>
-                                        <h4>Logo Design</h4>
-                                        <p><i class="bi bi-person"></i> Jane Smith (Designer)</p>
-                                    </div>
-                                </div>
-                                <span class="status-badge completed">Completed</span>
-                            </div>
-
-                            <div class="project-item">
-                                <div class="project-info">
-                                    <img src="https://ui-avatars.com/api/?name=Plumbing&background=d946ef&color=fff" alt="Project">
-                                    <div>
-                                        <h4>Home Plumbing Repair</h4>
-                                        <p><i class="bi bi-person"></i> Mike Johnson (Plumber)</p>
-                                    </div>
-                                </div>
-                                <span class="status-badge pending">Pending</span>
-                            </div>
-
-                            <div class="project-item">
-                                <div class="project-info">
-                                    <img src="https://ui-avatars.com/api/?name=Electrical&background=10b981&color=fff" alt="Project">
-                                    <div>
-                                        <h4>Electrical Wiring</h4>
-                                        <p><i class="bi bi-person"></i> Sarah Lee (Electrician)</p>
-                                    </div>
-                                </div>
-                                <span class="status-badge in-progress">In Progress</span>
-                            </div>
+                            } @empty {
+                            <p class="text-muted">No projects yet — <a routerLink="/find-artisans">find an artisan</a> to get started.</p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -222,62 +187,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Recent Activity</h3>
-                        <button class="icon-btn-small">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </button>
                     </div>
                     <div class="card-body">
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <div class="activity-icon purple">
-                                    <i class="bi bi-check-circle"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <p><strong>Logo Design</strong> project completed</p>
-                                    <span class="time">2 hours ago</span>
-                                </div>
-                            </div>
-
-                            <div class="activity-item">
-                                <div class="activity-icon green">
-                                    <i class="bi bi-chat-dots"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <p>New message from <strong>John Doe</strong></p>
-                                    <span class="time">5 hours ago</span>
-                                </div>
-                            </div>
-
-                            <div class="activity-item">
-                                <div class="activity-icon blue">
-                                    <i class="bi bi-star-fill"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <p>You received a <strong>5-star review</strong></p>
-                                    <span class="time">1 day ago</span>
-                                </div>
-                            </div>
-
-                            <div class="activity-item">
-                                <div class="activity-icon pink">
-                                    <i class="bi bi-cash"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <p>Payment of <strong>₦45,000</strong> processed</p>
-                                    <span class="time">2 days ago</span>
-                                </div>
-                            </div>
-
-                            <div class="activity-item">
-                                <div class="activity-icon purple">
-                                    <i class="bi bi-plus-circle"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <p>New project <strong>Website Development</strong> started</p>
-                                    <span class="time">3 days ago</span>
-                                </div>
-                            </div>
-                        </div>
+                        <p class="text-muted">See order updates and new messages on the Notifications page.</p>
+                        <a routerLink="/notifications" class="btn-outline">
+                            <i class="bi bi-bell me-2"></i>View Notifications
+                        </a>
                     </div>
                 </div>
             </div>
@@ -286,53 +201,24 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Top Artisans</h3>
-                    <a href="#" class="view-all">Browse All <i class="bi bi-arrow-right"></i></a>
+                    <a routerLink="/find-artisans" class="view-all">Browse All <i class="bi bi-arrow-right"></i></a>
                 </div>
                 <div class="card-body">
                     <div class="artisan-grid">
+                        @for (a of topArtisans; track a.artisan_id) {
                         <div class="artisan-card">
-                            <img src="https://ui-avatars.com/api/?name=John+Doe&background=6366f1&color=fff" alt="Artisan">
-                            <h4>John Doe</h4>
-                            <p>Web Developer</p>
+                            <img src="https://ui-avatars.com/api/?name={{a.first_name}}+{{a.last_name}}&background=6366f1&color=fff" alt="Artisan">
+                            <h4>{{a.first_name}} {{a.last_name}}</h4>
+                            <p>{{a.city || 'Location not set'}}</p>
                             <div class="rating">
                                 <i class="bi bi-star-fill"></i>
-                                <span>4.9 (127)</span>
+                                <span>{{a.average_rating}} ({{a.total_reviews}})</span>
                             </div>
-                            <button class="btn-outline">View Profile</button>
+                            <button class="btn-outline" (click)="messageArtisan(a.artisan_id)">Message</button>
                         </div>
-
-                        <div class="artisan-card">
-                            <img src="https://ui-avatars.com/api/?name=Jane+Smith&background=8b5cf6&color=fff" alt="Artisan">
-                            <h4>Jane Smith</h4>
-                            <p>Graphic Designer</p>
-                            <div class="rating">
-                                <i class="bi bi-star-fill"></i>
-                                <span>5.0 (89)</span>
-                            </div>
-                            <button class="btn-outline">View Profile</button>
-                        </div>
-
-                        <div class="artisan-card">
-                            <img src="https://ui-avatars.com/api/?name=Mike+Johnson&background=d946ef&color=fff" alt="Artisan">
-                            <h4>Mike Johnson</h4>
-                            <p>Plumber</p>
-                            <div class="rating">
-                                <i class="bi bi-star-fill"></i>
-                                <span>4.8 (156)</span>
-                            </div>
-                            <button class="btn-outline">View Profile</button>
-                        </div>
-
-                        <div class="artisan-card">
-                            <img src="https://ui-avatars.com/api/?name=Sarah+Lee&background=10b981&color=fff" alt="Artisan">
-                            <h4>Sarah Lee</h4>
-                            <p>Electrician</p>
-                            <div class="rating">
-                                <i class="bi bi-star-fill"></i>
-                                <span>4.9 (203)</span>
-                            </div>
-                            <button class="btn-outline">View Profile</button>
-                        </div>
+                        } @empty {
+                        <p class="text-muted">No rated artisans yet — reviews will surface top performers here.</p>
+                        }
                     </div>
                 </div>
             </div>

@@ -18,37 +18,39 @@
         </div>
 
         <nav class="sidebar-nav">
-            <a href="#" class="nav-link active">
+            <a routerLink="/artisan" class="nav-link active">
                 <i class="bi bi-speedometer2"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="#" routerLink="/artisan/services" class="nav-link">
+            <a routerLink="/artisan/orders" class="nav-link">
+                    <i class="bi bi-inbox"></i>
+                    <span>Job Requests</span>
+                </a>
+            <a routerLink="/artisan/services" class="nav-link">
                     <i class="bi bi-briefcase"></i>
                     <span>Services</span>
-                    <span class="badge">4</span>
                 </a>
-            <a href="#" class="nav-link">
+            <a routerLink="/messages" class="nav-link">
                 <i class="bi bi-chat-left-text"></i>
                 <span>Messages</span>
-                <span class="badge">7</span>
             </a>
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" routerLink="/artisan/reviews">
                 <i class="bi bi-star"></i>
                 <span>Reviews</span>
             </a>
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" routerLink="/artisan/earnings">
                 <i class="bi bi-wallet2"></i>
                 <span>Earnings</span>
             </a>
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" routerLink="/artisan/schedule">
                 <i class="bi bi-calendar-check"></i>
                 <span>Schedule</span>
             </a>
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" routerLink="/artisan/profile">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" routerLink="/settings">
                 <i class="bi bi-gear"></i>
                 <span>Settings</span>
             </a>
@@ -86,9 +88,9 @@
                     <span class="notification-dot"></span>
                 </button>
                 <div class="user-profile">
-                    <img src="https://ui-avatars.com/api/?name=Artisan&background=8b5cf6&color=fff" alt="User">
+                    <img src="https://ui-avatars.com/api/?name={{user}}&background=8b5cf6&color=fff" alt="User">
                     <div class="user-info">
-                        <span class="user-name">John Artisan</span>
+                        <span class="user-name">{{user}}</span>
                         <span class="user-role">Professional</span>
                     </div>
                 </div>
@@ -100,8 +102,8 @@
             <!-- Welcome Section -->
             <div class="welcome-section artisan">
                 <div class="welcome-text">
-                    <h1>Welcome back, <span class="gradient-text">John</span>! 🛠️</h1>
-                    <p>You have 4 pending job requests and 2 ongoing projects.</p>
+                    <h1>Welcome back, <span class="gradient-text">{{user}}</span>! 🛠️</h1>
+                    <p>You have {{totalPendingCount}} pending job requests and {{totalOngoingCount}} ongoing projects.</p>
                 </div>
                 <button class="btn-primary">
                     <i class="bi bi-plus-lg me-2"></i>
@@ -117,9 +119,9 @@
                     </div>
                     <div class="stat-info">
                         <span class="stat-label">Total Jobs</span>
-                        <h3 class="stat-value">{{artisanStats.totalJobs || 47}}</h3>
+                        <h3 class="stat-value">{{artisanStats.totalJobs}}</h3>
                         <span class="stat-change positive">
-                            <i class="bi bi-arrow-up"></i> 15% from last month
+                            <i class="bi bi-check-circle"></i> {{artisanStats.completedJobs}} completed
                         </span>
                     </div>
                 </div>
@@ -130,10 +132,7 @@
                     </div>
                     <div class="stat-info">
                         <span class="stat-label">Active Jobs</span>
-                        <h3 class="stat-value">{{artisanStats.activeJobs || 4}}</h3>
-                        <span class="stat-change positive">
-                            <i class="bi bi-arrow-up"></i> 2 new requests
-                        </span>
+                        <h3 class="stat-value">{{artisanStats.activeJobs}}</h3>
                     </div>
                 </div>
 
@@ -143,9 +142,9 @@
                     </div>
                     <div class="stat-info">
                         <span class="stat-label">Rating</span>
-                        <h3 class="stat-value">{{artisanStats.rating || '4.9'}}</h3>
+                        <h3 class="stat-value">{{artisanStats.rating}}</h3>
                         <span class="stat-change positive">
-                            <i class="bi bi-arrow-up"></i> 127 reviews
+                            <i class="bi bi-arrow-up"></i> {{reviewsSummary.total_reviews}} reviews
                         </span>
                     </div>
                 </div>
@@ -156,10 +155,7 @@
                     </div>
                     <div class="stat-info">
                         <span class="stat-label">Total Earnings</span>
-                        <h3 class="stat-value">₦{{artisanStats.totalEarnings || '1,240,000'}}</h3>
-                        <span class="stat-change positive">
-                            <i class="bi bi-arrow-up"></i> 22% increase
-                        </span>
+                        <h3 class="stat-value">₦{{artisanStats.totalEarnings}}</h3>
                     </div>
                 </div>
             </div>
@@ -170,54 +166,27 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Pending Requests</h3>
-                        <a href="#" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
+                        <a routerLink="/artisan/orders" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
                     </div>
                     <div class="card-body">
                         <div class="project-list">
+                            @for (o of pendingRequests; track o.order_id) {
                             <div class="project-item">
                                 <div class="project-info">
-                                    <img src="https://ui-avatars.com/api/?name=Alice+Brown&background=6366f1&color=fff" alt="Customer">
+                                    <img src="https://ui-avatars.com/api/?name={{o.customer_first_name}}+{{o.customer_last_name}}&background=6366f1&color=fff" alt="Customer">
                                     <div>
-                                        <h4>Plumbing Repair</h4>
-                                        <p><i class="bi bi-person"></i> Alice Brown</p>
-                                        <p class="job-detail"><i class="bi bi-geo-alt"></i> Lagos, Nigeria</p>
+                                        <h4>{{o.order_description}}</h4>
+                                        <p><i class="bi bi-person"></i> {{o.customer_first_name}} {{o.customer_last_name}}</p>
                                     </div>
                                 </div>
                                 <div class="action-btns">
-                                    <button class="btn-accept"><i class="bi bi-check"></i></button>
-                                    <button class="btn-decline"><i class="bi bi-x"></i></button>
+                                    <button class="btn-accept" (click)="respondToRequest(o.order_id, 'accepted')"><i class="bi bi-check"></i></button>
+                                    <button class="btn-decline" (click)="respondToRequest(o.order_id, 'declined')"><i class="bi bi-x"></i></button>
                                 </div>
                             </div>
-
-                            <div class="project-item">
-                                <div class="project-info">
-                                    <img src="https://ui-avatars.com/api/?name=Bob+Smith&background=8b5cf6&color=fff" alt="Customer">
-                                    <div>
-                                        <h4>Electrical Installation</h4>
-                                        <p><i class="bi bi-person"></i> Bob Smith</p>
-                                        <p class="job-detail"><i class="bi bi-geo-alt"></i> Abuja, Nigeria</p>
-                                    </div>
-                                </div>
-                                <div class="action-btns">
-                                    <button class="btn-accept"><i class="bi bi-check"></i></button>
-                                    <button class="btn-decline"><i class="bi bi-x"></i></button>
-                                </div>
-                            </div>
-
-                            <div class="project-item">
-                                <div class="project-info">
-                                    <img src="https://ui-avatars.com/api/?name=Carol+White&background=d946ef&color=fff" alt="Customer">
-                                    <div>
-                                        <h4>Carpentry Work</h4>
-                                        <p><i class="bi bi-person"></i> Carol White</p>
-                                        <p class="job-detail"><i class="bi bi-geo-alt"></i> Port Harcourt</p>
-                                    </div>
-                                </div>
-                                <div class="action-btns">
-                                    <button class="btn-accept"><i class="bi bi-check"></i></button>
-                                    <button class="btn-decline"><i class="bi bi-x"></i></button>
-                                </div>
-                            </div>
+                            } @empty {
+                            <p class="text-muted">No pending requests right now.</p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -226,41 +195,24 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Ongoing Jobs</h3>
-                        <button class="icon-btn-small">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </button>
+                        <a routerLink="/artisan/orders" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
                     </div>
                     <div class="card-body">
                         <div class="project-list">
+                            @for (o of ongoingJobs; track o.order_id) {
                             <div class="project-item">
                                 <div class="project-info">
-                                    <img src="https://ui-avatars.com/api/?name=David+Lee&background=10b981&color=fff" alt="Customer">
+                                    <img src="https://ui-avatars.com/api/?name={{o.customer_first_name}}+{{o.customer_last_name}}&background=10b981&color=fff" alt="Customer">
                                     <div>
-                                        <h4>Kitchen Renovation</h4>
-                                        <p><i class="bi bi-person"></i> David Lee</p>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 75%"></div>
-                                        </div>
-                                        <p class="progress-text">75% Complete</p>
+                                        <h4>{{o.order_description}}</h4>
+                                        <p><i class="bi bi-person"></i> {{o.customer_first_name}} {{o.customer_last_name}}</p>
                                     </div>
                                 </div>
                                 <span class="status-badge in-progress">Active</span>
                             </div>
-
-                            <div class="project-item">
-                                <div class="project-info">
-                                    <img src="https://ui-avatars.com/api/?name=Emma+Davis&background=f59e0b&color=fff" alt="Customer">
-                                    <div>
-                                        <h4>Bathroom Tiling</h4>
-                                        <p><i class="bi bi-person"></i> Emma Davis</p>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 40%"></div>
-                                        </div>
-                                        <p class="progress-text">40% Complete</p>
-                                    </div>
-                                </div>
-                                <span class="status-badge in-progress">Active</span>
-                            </div>
+                            } @empty {
+                            <p class="text-muted">No active jobs right now.</p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -271,32 +223,20 @@
                 <!-- Earnings Summary -->
                 <div class="card">
                     <div class="card-header">
-                        <h3>Earnings This Month</h3>
-                        <select class="month-selector">
-                            <option>November 2025</option>
-                            <option>October 2025</option>
-                            <option>September 2025</option>
-                        </select>
+                        <h3>Earnings</h3>
                     </div>
                     <div class="card-body">
                         <div class="earnings-summary">
                             <div class="earning-item">
+                                <span class="earning-label">Total Earnings</span>
+                                <h3 class="earning-value">₦{{artisanStats.totalEarnings}}</h3>
+                            </div>
+                            <div class="earning-item">
                                 <span class="earning-label">Completed Jobs</span>
-                                <h3 class="earning-value">₦450,000</h3>
-                            </div>
-                            <div class="earning-item">
-                                <span class="earning-label">Pending Payments</span>
-                                <h3 class="earning-value">₦120,000</h3>
-                            </div>
-                            <div class="earning-item">
-                                <span class="earning-label">Withdrawn</span>
-                                <h3 class="earning-value">₦300,000</h3>
+                                <h3 class="earning-value">{{artisanStats.totalJobs}}</h3>
                             </div>
                         </div>
-                        <button class="btn-withdraw">
-                            <i class="bi bi-cash-coin me-2"></i>
-                            Withdraw Funds
-                        </button>
+                        <p class="text-muted small mb-0">Payouts/withdrawals aren't set up yet — earnings reflect payments recorded against your completed orders.</p>
                     </div>
                 </div>
 
@@ -304,45 +244,31 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Recent Reviews</h3>
-                        <a href="#" class="view-all">View All <i class="bi bi-arrow-right"></i></a>
+                        @if (reviewsSummary.total_reviews > 0) {
+                            <span class="text-muted small">{{reviewsSummary.average_rating}}/5 ({{reviewsSummary.total_reviews}} total)</span>
+                        }
                     </div>
                     <div class="card-body">
                         <div class="review-list">
+                            @for (r of recentReviews; track r.review_id) {
                             <div class="review-item">
                                 <div class="review-header">
-                                    <img src="https://ui-avatars.com/api/?name=Frank+Moore&background=6366f1&color=fff" alt="Customer">
+                                    <img src="https://ui-avatars.com/api/?name={{r.customer_first_name}}+{{r.customer_last_name}}&background=6366f1&color=fff" alt="Customer">
                                     <div>
-                                        <h4>Frank Moore</h4>
+                                        <h4>{{r.customer_first_name}} {{r.customer_last_name}}</h4>
                                         <div class="stars">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
+                                            @for (s of [1,2,3,4,5]; track s) {
+                                                <i class="bi" [ngClass]="s <= r.rating ? 'bi-star-fill' : 'bi-star'"></i>
+                                            }
                                         </div>
                                     </div>
                                 </div>
-                                <p class="review-text">"Excellent work! Very professional and completed on time."</p>
-                                <span class="review-time">2 days ago</span>
+                                <p class="review-text">{{r.comment}}</p>
+                                <span class="review-time">{{r.created_on | date:'mediumDate'}}</span>
                             </div>
-
-                            <div class="review-item">
-                                <div class="review-header">
-                                    <img src="https://ui-avatars.com/api/?name=Grace+Wilson&background=8b5cf6&color=fff" alt="Customer">
-                                    <div>
-                                        <h4>Grace Wilson</h4>
-                                        <div class="stars">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="review-text">"Good service, would recommend to others."</p>
-                                <span class="review-time">5 days ago</span>
-                            </div>
+                            } @empty {
+                            <p class="text-muted">No reviews yet — they'll show up here once customers start reviewing completed jobs.</p>
+                            }
                         </div>
                     </div>
                 </div>

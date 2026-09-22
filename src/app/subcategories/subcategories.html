@@ -119,9 +119,9 @@
                                             <i class="fas fa-sitemap"></i>
                                         </div>
                                         <select id="parentCat" [(ngModel)]="category_id" name="parentCat">
-                                            <option selected disabled>Select a category</option>
-                                            @for (item of categories; track $index) {
-                                                <option value="{{item[0]}}">{{item[1]}}</option>
+                                            <option [ngValue]="0" selected disabled>Select a category</option>
+                                            @for (item of categories; track item.category_id) {
+                                                <option [ngValue]="item.category_id">{{item.category_name}}</option>
                                             }
                                         </select>
                                     </div>

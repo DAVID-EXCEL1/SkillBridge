@@ -1,0 +1,58 @@
+<div class="app-shell">
+  <app-sidebar></app-sidebar>
+  <div class="app-shell-content">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 class="h3 mb-0"><i class="bi bi-graph-up me-2"></i>Analytics</h1>
+    </div>
+
+    @if (loading) {
+      <p class="text-muted">Loading analytics...</p>
+    } @else {
+      <p class="text-muted small mb-4">Last 14 days.</p>
+
+      <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Bookings per day</h5>
+            @if (bookings.length === 0) {
+              <p class="text-muted">No bookings in this period.</p>
+            } @else {
+              <div class="d-flex align-items-end gap-2" style="height: 200px;">
+                @for (b of bookings; track b.day) {
+                  <div class="d-flex flex-column align-items-center justify-content-end" style="flex: 1; height: 100%;">
+                    <div class="w-100 bg-primary rounded-top" [style.height.%]="(b.bookings / maxBookings) * 100"
+                      [title]="b.bookings + ' bookings'"></div>
+                    <div class="small text-muted mt-1" style="writing-mode: vertical-rl; white-space: nowrap;">{{ b.day | date:'M/d' }}</div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Revenue per day (₦)</h5>
+            @if (revenue.length === 0) {
+              <p class="text-muted">No revenue in this period.</p>
+            } @else {
+              <div class="d-flex align-items-end gap-2" style="height: 200px;">
+                @for (r of revenue; track r.day) {
+                  <div class="d-flex flex-column align-items-center justify-content-end" style="flex: 1; height: 100%;">
+                    <div class="w-100 bg-success rounded-top" [style.height.%]="(r.revenue / maxRevenue) * 100"
+                      [title]="'₦' + r.revenue"></div>
+                    <div class="small text-muted mt-1" style="writing-mode: vertical-rl; white-space: nowrap;">{{ r.day | date:'M/d' }}</div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

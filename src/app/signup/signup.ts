@@ -4,6 +4,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from "@angular/router";
 
+import { API_BASE_URL } from '../core/api-base';
 @Component({
   selector: 'app-signup',
   imports: [FormsModule, ReactiveFormsModule, RouterLink, CommonModule],
@@ -62,7 +63,7 @@ export class Signup{
     }
 
     this.loading = true;
-    this.http.post('http://localhost/SkillBridge/auth/signup', this.signupForm.value)
+    this.http.post(`${API_BASE_URL}/auth/signup`, this.signupForm.value)
       .subscribe((response: any) => {
         this.loading = false;
         if (response.status === 200) {

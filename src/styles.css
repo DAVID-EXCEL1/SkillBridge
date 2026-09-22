@@ -1,1 +1,363 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #6366f1;
+    --secondary: #8b5cf6;
+    --accent: #d946ef;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #3b82f6;
+    --dark: #1f2937;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --border: #e5e7eb;
+    --shadow-sm: 0 2px 10px rgba(17, 24, 39, 0.06);
+    --shadow: 0 4px 15px rgba(99, 102, 241, 0.1);
+    --shadow-lg: 0 10px 30px rgba(99, 102, 241, 0.18);
+    --radius: 16px;
+    --radius-sm: 10px;
+}
+
+html, body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* ===============================================================
+   Shared shell layout for "simple" pages that use <app-sidebar>
+   instead of their own hand-built sidebar (find-artisans, my-orders,
+   settings, admin/artisan sub-pages, etc.)
+=================================================================== */
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-secondary);
+}
+
+.app-shell-content {
+    flex: 1;
+    min-width: 0;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    .app-shell-content {
+        padding: 1.25rem;
+    }
+}
+
+/* ===============================================================
+   Global theme for simple/utility pages (bare Bootstrap markup)
+   Scoped Angular component styles always win over these defaults,
+   so this only "beautifies" pages that don't already have their
+   own custom look.
+=================================================================== */
+
+/* Page header pattern used across dashboards: <h1 class="h3"><i></i>Title</h1> */
+.container > .d-flex h1.h3,
+.container-fluid > .d-flex h1.h3,
+.app-shell-content > .d-flex h1.h3 {
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.container > .d-flex h1.h3 i,
+.container-fluid > .d-flex h1.h3 i,
+.app-shell-content > .d-flex h1.h3 i {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+    color: #fff;
+    font-size: 1.1rem;
+    margin-right: 0.85rem !important;
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+    flex-shrink: 0;
+}
+
+/* Buttons */
+.btn {
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    transition: all 0.25s ease;
+}
+
+.btn-sm {
+    border-radius: 8px;
+}
+
+.btn:disabled,
+.btn.disabled {
+    transform: none !important;
+    opacity: 0.65;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border: none;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(99, 102, 241, 0.45);
+}
+
+.btn-success {
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btn-danger {
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+}
+
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+    color: var(--text-secondary);
+    border-color: var(--border);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-outline-success:hover,
+.btn-outline-danger:hover,
+.btn-outline-warning:hover {
+    transform: translateY(-2px);
+}
+
+.btn-link {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    color: var(--secondary);
+}
+
+/* Cards */
+.card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.25s ease;
+}
+
+.card.shadow-sm {
+    box-shadow: var(--shadow-sm) !important;
+}
+
+.row .card:hover,
+.d-flex.flex-column.gap-1 > .card:hover,
+.d-flex.flex-column.gap-2 > .card:hover,
+.d-flex.flex-column.gap-3 > .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(99, 102, 241, 0.25);
+}
+
+.card-title {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Tables */
+.table-responsive {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    border-bottom: 2px solid var(--border);
+    padding: 1rem;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-color: var(--border);
+    color: var(--text-primary);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: rgba(99, 102, 241, 0.03);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(99, 102, 241, 0.06);
+}
+
+/* Badges */
+.badge {
+    font-weight: 600;
+    padding: 0.4em 0.75em;
+    border-radius: 8px;
+    letter-spacing: 0.02em;
+}
+
+.badge.rounded-pill {
+    border-radius: 50rem;
+}
+
+.badge.bg-success {
+    background: var(--success) !important;
+}
+
+.badge.bg-danger {
+    background: var(--danger) !important;
+}
+
+.badge.bg-secondary {
+    background: #94a3b8 !important;
+}
+
+.badge.bg-warning {
+    background: var(--warning) !important;
+    color: #fff !important;
+}
+
+.badge.bg-primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+}
+
+/* Alerts */
+.alert {
+    border: none;
+    border-left: 4px solid transparent;
+    border-radius: 12px;
+    font-size: 0.95rem;
+}
+
+.alert-info {
+    background: rgba(59, 130, 246, 0.08);
+    border-left-color: var(--info);
+    color: #1e40af;
+}
+
+.alert-light {
+    background: var(--bg-secondary);
+    border-left-color: var(--border);
+    color: var(--text-secondary);
+}
+
+.alert-warning {
+    background: rgba(245, 158, 11, 0.1);
+    border-left-color: var(--warning);
+    color: #92400e;
+}
+
+.alert-success {
+    background: rgba(16, 185, 129, 0.1);
+    border-left-color: var(--success);
+    color: #065f46;
+}
+
+/* Forms */
+.form-control,
+.form-select {
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border);
+    padding: 0.65rem 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+}
+
+.form-text {
+    color: var(--text-muted);
+}
+
+/* List group (e.g. messages sidebar) */
+.list-group-item {
+    border-color: var(--border);
+}
+
+.list-group-item-action:hover {
+    background: rgba(99, 102, 241, 0.06);
+}
+
+.list-group-item-action.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-color: transparent;
+    color: #fff;
+}
+
+/* Chart bars / chat bubbles built with bootstrap bg utilities */
+.bg-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%) !important;
+}
+
+.bg-success {
+    background: var(--success) !important;
+}

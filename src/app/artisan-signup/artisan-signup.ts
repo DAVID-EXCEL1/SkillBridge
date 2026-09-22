@@ -4,6 +4,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import {Router, RouterLink } from "@angular/router";
 
+import { API_BASE_URL } from '../core/api-base';
 @Component({
   selector: 'app-artisan-signup',
   imports: [FormsModule, ReactiveFormsModule, RouterLink, CommonModule],
@@ -61,7 +62,7 @@ export class ArtisanSignup {
     }
 
     this.loading = true;
-    this.http.post('http://localhost/SkillBridge/artisanAuth/artisan-signup', this.ArtisanSignupForm.value)
+    this.http.post(`${API_BASE_URL}/artisanAuth/artisan-signup`, this.ArtisanSignupForm.value)
       .subscribe({
         next: (response: any) => {
           this.loading = false;

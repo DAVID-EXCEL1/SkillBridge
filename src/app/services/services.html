@@ -107,9 +107,9 @@
                         <label class="form-label"><i class="bi bi-list-check"></i> Category</label>
                         <div class="input-wrapper">
                             <select class="form-select form-control" [(ngModel)]="category_id" (change)="getid()">
-                                <option selected disabled>Select a category</option>
-                                @for (item of categories; track $index) {
-                                <option value="{{item[0]}}">{{item[1]}}</option>
+                                <option [ngValue]="0" selected disabled>Select a category</option>
+                                @for (item of categories; track item.category_id) {
+                                <option [ngValue]="item.category_id">{{item.category_name}}</option>
                                 }
                             </select>
                             <span class="input-icon"><i class="bi bi-collection"></i></span>
@@ -120,10 +120,11 @@
                     <div class="form-group">
                         <label class="form-label"><i class="bi bi-diagram-3"></i> Sub Categories</label>
                         <div class="subcat-box glass-lite">
-                            @for (item of subcategories; track $index) {
+                            @for (item of subcategories; track item.sub_category_id) {
                             <label class="check-item">
-                                <input type="checkbox" value="{{item[1]}}" (change)="select($event)">
-                                <span class="check-label">{{item[1]}}</span>
+                                <input type="checkbox" [checked]="selectedSubCategoryIds.includes(item.sub_category_id)"
+                                    (change)="select($event, item.sub_category_id)">
+                                <span class="check-label">{{item.sub_category_name}}</span>
                             </label>
                             }
                             @empty { <p class="empty-text">Select a category to see sub-categories</p> }
@@ -194,11 +195,25 @@
 
                     <!-- Actions -->
                     <div class="action-row">
-                        <button type="button" class="btn-clear">Reset</button>
-                        <button type="button" class="btn-submit-gradient"><i class="bi bi-save2 me-1"></i>Save
-                            Service</button>
+                        <button type="button" class="btn-clear" (click)="selectedSubCategoryIds = []">Reset</button>
+                        <button type="button" class="btn-submit-gradient" [disabled]="saving" (click)="saveServices()">
+                            <i class="bi bi-save2 me-1"></i>{{ saving ? 'Saving...' : 'Save Service' }}
+                        </button>
                     </div>
+                    <p class="form-hint" *ngIf="message">{{ message }}</p>
                 </form>
+
+                <div class="my-services glass-lite" *ngIf="myServices.length" style="margin-top: 1.5rem; padding: 1rem; border-radius: 0.75rem;">
+                    <h2 class="section-title" style="font-size: 1rem;">Currently offering</h2>
+                    <div class="chips">
+                        @for (svc of myServices; track $index) {
+                        <div class="chip glow">
+                            <i class="fas fa-tag"></i>
+                            {{ svc.category_name }}{{ svc.sub_category_name ? ' — ' + svc.sub_category_name : '' }}
+                        </div>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>

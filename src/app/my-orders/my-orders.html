@@ -1,0 +1,79 @@
+<div class="app-shell">
+  <app-sidebar></app-sidebar>
+  <div class="app-shell-content">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h1 class="h3 mb-0"><i class="bi bi-clipboard-check me-2"></i>My Orders</h1>
+      <a routerLink="/find-artisans" class="btn btn-success btn-sm">
+        <i class="bi bi-plus-lg me-1"></i>Book Someone New
+      </a>
+    </div>
+
+  @if (actionMessage) {
+    <div class="alert alert-info py-2">{{ actionMessage }}</div>
+  }
+
+  @if (loading) {
+    <p class="text-muted">Loading your orders...</p>
+  } @else if (orders.length === 0) {
+    <div class="alert alert-light border">You haven't booked anyone yet.</div>
+  }
+
+  <div class="d-flex flex-column gap-3">
+    @for (o of orders; track o.order_id) {
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h5 class="mb-1">{{ o.order_description }}</h5>
+              <p class="text-muted small mb-1">
+                With <strong>{{ o.artisan_first_name }} {{ o.artisan_last_name }}</strong>
+                @if (o.price) { • {{ o.currency }} {{ o.price }} }
+              </p>
+              @if (o.notes) { <p class="small text-muted mb-1">Note: {{ o.notes }}</p> }
+            </div>
+            <span class="badge rounded-pill" [ngClass]="statusBadgeClass(o.status)">{{ o.status }}</span>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <a class="btn btn-outline-primary btn-sm" [routerLink]="['/messages']" [queryParams]="{ with: o.artisan_id }">
+              <i class="bi bi-chat-dots me-1"></i>Message
+            </a>
+            @if (o.status === 'pending') {
+              <button class="btn btn-outline-danger btn-sm" (click)="cancel(o.order_id)">
+                <i class="bi bi-x-circle me-1"></i>Cancel
+              </button>
+            }
+            @if (o.status === 'accepted') {
+              <button class="btn btn-outline-success btn-sm" (click)="pay(o.order_id, o.price || 0)">
+                <i class="bi bi-credit-card me-1"></i>Record Payment
+              </button>
+            }
+            @if (o.status === 'completed') {
+              <button class="btn btn-outline-warning btn-sm" (click)="openReview(o.order_id)">
+                <i class="bi bi-star me-1"></i>Leave a Review
+              </button>
+            }
+          </div>
+
+          @if (reviewingOrderId === o.order_id) {
+            <div class="border rounded p-3 mt-3 bg-light">
+              <label class="form-label">Rating</label>
+              <select class="form-select mb-2" style="max-width: 120px;" [(ngModel)]="reviewRating">
+                <option [ngValue]="5">5 - Excellent</option>
+                <option [ngValue]="4">4 - Good</option>
+                <option [ngValue]="3">3 - Okay</option>
+                <option [ngValue]="2">2 - Poor</option>
+                <option [ngValue]="1">1 - Bad</option>
+              </select>
+              <label class="form-label">Comment</label>
+              <textarea class="form-control mb-2" rows="2" [(ngModel)]="reviewComment"></textarea>
+              <button class="btn btn-primary btn-sm" (click)="submitReview()">Submit Review</button>
+              <button class="btn btn-link btn-sm" (click)="reviewingOrderId = null">Cancel</button>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+  </div>
+</div>

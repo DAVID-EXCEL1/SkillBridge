@@ -4,6 +4,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
+import { API_BASE_URL } from '../core/api-base';
 @Component({
   selector: 'app-subcategories',
   standalone: true,
@@ -19,7 +20,7 @@ export class Subcategories implements OnInit {
   toggleSidebar() { this.isSidebarCollapsed = !this.isSidebarCollapsed; }
 
   ngOnInit(): void {
-    this._http.get('http://localhost/SkillBridge/categories').subscribe((response: any) => {
+    this._http.get(`${API_BASE_URL}/categories`).subscribe((response: any) => {
       if (response.status === 200) {
 
         this.categories = response.categories;
@@ -44,13 +45,13 @@ export class Subcategories implements OnInit {
       // Send data to the backend
       const data = { category_id: this.category_id, subcategories: this.added_items };
 
-      this._http.post('http://localhost/SkillBridge/subcategories', data).subscribe((response: any) => {
-        if (response.status === 200) {
-          console.log(response.message);
-
-        } else {
-          console.log(response);
-
+      this._http.post(`${API_BASE_URL}/subcategories`, data).subscribe({
+        next: (response: any) => {
+          this.message = response.message || 'Subcategories saved';
+          this.added_items = [];
+        },
+        error: (err) => {
+          this.message = err?.error?.message || 'Could not save subcategories. Try again.';
         }
       })
     } else {

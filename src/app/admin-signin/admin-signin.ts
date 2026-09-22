@@ -4,6 +4,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
+import { API_BASE_URL } from '../core/api-base';
 @Component({
   selector: 'app-admin-signin',
   standalone: true,
@@ -53,7 +54,7 @@ export class AdminSignin {
       return;
     }
     this.loading = true;
-    this.http.post('http://localhost/SkillBridge/adminAuth/admin-signin', this.loginForm.value)
+    this.http.post(`${API_BASE_URL}/adminAuth/admin-signin`, this.loginForm.value)
       .subscribe({
         next: (response: any) => {
           this.loading = false;
